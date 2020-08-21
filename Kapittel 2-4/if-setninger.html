@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let alder = Number(prompt("Skriv inn alderen din: "));
+        let prisBarn = 15;
+        let prisVoksen = 30;
+        let prisPensjonist = 20;
+
+        // Kontrollstrukturer er strukturer som kontrollerer (styrer) programflyten
+        if(alder >= 16 && alder < 67){
+            // Krøllparenteser brukes til å lage kodeblokk
+            console.log("Du er voksen så prisen du skal betale er: " + prisVoksen + " kr");
+        }else if(alder < 16){
+            console.log("Du er barn så prisen du skal betale er: " + prisBarn + " kr");
+        }else{
+            console.log("Du er pensjonist så prisen du skal betale er: " + prisPensjonist + " kr")
+        }
+
+        // Sammenligningsoperatorer
+        console.log("4" == 4);
+        console.log("4" === 4);
+        console.log("4" === "4");
+        console.log("4" !== "4");
+        console.log("4" !== 4);
+
+        // Bruk alltid tre likhetstegn.
+
+        // Logiske operatorer tar alltid boolean operander og returnerer en booleanverdi
+        console.log(" ")
+        console.log(true && true)
+        console.log(false && true)
+        console.log(true && false)
+        console.log(false && false)
+        console.log(" ")
+        console.log(true || true)
+        console.log(false || true)
+        console.log(true || false)
+        console.log(false || false)
+        console.log(" ")
+        console.log(!(alder > 16))
+
+        // Tilfeldige tall!
+        console.log(" ")
+        console.log(Math.trunc(Math.random()*6)+1)
+
+
+
+    </script>
+</body>
+</html>
