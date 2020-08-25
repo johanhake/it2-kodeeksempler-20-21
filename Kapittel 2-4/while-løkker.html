@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // While-løkken gjentar en kodeblokk så lenge en betingelse er sann
+        let tall = 0;
+        let telle = 0;
+        while(tall < 10){
+            console.log(tall);
+            tall += Math.random();
+            telle++;
+        }
+
+        console.log(telle);
+
+        // Failsafe måte å få tak på et tall på!
+        let tall2 = Number(prompt("Skriv inn et tall: "));
+        while(isNaN(tall2)){
+            tall2 = Number(prompt("Jeg sa SKRIV INN ET TALL!: "));
+        }
+        console.log("Du skrev inn " + tall2);
+
+    </script>
+</body>
+</html>
