@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Løkker og tekst</title>
+</head>
+<body>
+    <script>
+        let tekst = "You know nOthing John Snow!";
+        
+        //console.log(tekst[15]);
+
+        let antall_o = 0;
+        for(let i = 0; i < tekst.length; i++){
+            console.log(tekst[i]);
+            if(tekst[i].toLowerCase() === "o"){
+                antall_o++;
+            }
+        }
+        console.log("Antall o i", tekst, "er", antall_o);
+
+    </script>
+</body>
+</html>
