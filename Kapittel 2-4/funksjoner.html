@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funksjoner</title>
+</head>
+<body>
+    <script>
+
+        function morgenhilsen(){
+            console.log("***************");
+            console.log("* God morgen! *");
+            console.log("***************");
+        }
+
+        let returverdi = morgenhilsen(56, 67, 78);
+        console.log(returverdi);
+
+        function morgenhilsen2(navn){
+            console.log("***************");
+            console.log("* God morgen " + navn + "! *");
+            console.log("***************");
+        }
+
+        morgenhilsen2("Jens");
+
+        function terning(){
+            return Math.trunc(Math.random()*6+1);
+        }
+
+        let maks = 6;
+        function terning_feil(){
+            return Math.floor(Math.random()*maks)+1;
+        }
+
+        //console.log(terning_feil());
+
+        function terning_riktig(min, maks){
+            return Math.floor(Math.random()*(maks-min)+min);
+        }
+
+        for(let i=0; i<10; i++){
+            console.log(terning_riktig(10, 20));
+        }
+
+
+    </script>
+</body>
+</html>

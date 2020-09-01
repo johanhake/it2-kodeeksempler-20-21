@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppg 3.17</title>
+</head>
+
+<body>
+    <script>
+
+        for (let i = 1; i <= 100; i++) {
+            if (i % 3 === 0 && i % 5 === 0) {
+                console.log("3.17: fizzbuzz");
+            } else if (i % 3 === 0) {
+                console.log("3.17: fizz");
+            } else if (i % 5 === 0) {
+                console.log("3.17: buzz");
+            } else {
+                console.log("3.17: " + i);
+            }
+        }
+
+        let alfabet = "abcdefghijklmnopqrstuvxyzøæå";
+        for (let n = 0; n < 100; n++) {
+            let ord = "";
+            for (i = 0; i < Math.trunc(Math.random()*10); i++) {
+                ord += alfabet[Math.trunc(Math.random()*alfabet.length)];
+            }
+            console.log(ord);
+        }
+
+        
+    </script>
+</body>
+
+</html>
