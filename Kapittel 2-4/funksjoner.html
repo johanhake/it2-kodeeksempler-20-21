@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Funksjoner</title>
 </head>
+
 <body>
     <script>
 
-        function morgenhilsen(){
+        function morgenhilsen() {
             console.log("***************");
             console.log("* God morgen! *");
             console.log("***************");
@@ -17,7 +19,7 @@
         let returverdi = morgenhilsen(56, 67, 78);
         console.log(returverdi);
 
-        function morgenhilsen2(navn){
+        function morgenhilsen2(navn) {
             console.log("***************");
             console.log("* God morgen " + navn + "! *");
             console.log("***************");
@@ -25,26 +27,50 @@
 
         morgenhilsen2("Jens");
 
-        function terning(){
-            return Math.trunc(Math.random()*6+1);
+        function terning() {
+            return Math.trunc(Math.random() * 6 + 1);
         }
 
         let maks = 6;
-        function terning_feil(){
-            return Math.floor(Math.random()*maks)+1;
+        function terning_feil() {
+            return Math.floor(Math.random() * maks) + 1;
         }
 
         //console.log(terning_feil());
 
-        function terning_riktig(min, maks){
-            return Math.floor(Math.random()*(maks-min)+min);
+        function terning_riktig(min, maks) {
+            return Math.floor(Math.random() * (maks - min) + min);
         }
 
-        for(let i=0; i<10; i++){
+        for (let i = 0; i < 10; i++) {
             console.log(terning_riktig(10, 20));
         }
 
+        // Eksempler på rekkeveidde (scope) til variabler
+        let jada = 10;
+        {
+            // Lokale variabler
+            let jada = 5;
+            var IIIIIK = 10;
+            {
+                console.log(jada);
+            }
+        }
+        console.log(jada);
+        console.log(IIIIIK);
+
+        /* Ternings funksjon
+
+        Returnerer et tall mellom 1 og maks (som er en verdi som gis til funksjonen)
+
+        Argument (Number) maks - bestemmer maksverdien til returverdiet
+        Retur (Number)
+        */
+        function terning(maks) {
+            return Math.floor(Math.random() * maks) + 1;
+        }
 
     </script>
 </body>
+
 </html>
