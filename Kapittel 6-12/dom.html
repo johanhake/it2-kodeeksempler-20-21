@@ -8,11 +8,65 @@
         .gul{
             background-color: yellow;
         }
+
+        .grønn{
+            background-color: green;
+        }
     </style>
 </head>
 <body>
     <h1>Velkommen til sinden min</h1>
-    <p>På denne siden kan du lære mer om meg.</p>
-    <p class="gul">Min favorittfarge er gul.</p>
+    <p id="første">På denne siden kan du lære mer om meg.</p>
+    <p class="gul">Min favorittfarge er gul.</p> 
+    <ol></ol>
+
+    <script>
+        let p = document.querySelector("#første");
+        let p_gul = document.querySelector(".gul");
+        let ol = document.querySelector("ol");
+        
+        p_gul.innerHTML = "<ul><li>Liste 1</li><li>Liste 2</li></ul>"; 
+        
+        /* NB!!!! innerHTML er tricky!
+           innerHTML prøver alltid å avslutte elementene som blir skrevet til det. 
+        */
+        p_gul.innerHTML = "<ul>";
+            p_gul.innerHTML += "<li>";
+                p_gul.innerHTML += "Liste 1";
+            p_gul.innerHTML += "</li>";
+        p_gul.innerHTML += "</ul>";
+
+        // Variabel 
+        let liste_innhold = "JADA";
+
+        // Fikser vi med string templates
+        p_gul.innerHTML = `
+        <ul>
+            <li class="grønn">
+                ${liste_innhold}
+            </li>
+            <li>
+                Liste 2
+            </li>
+        </ul>`;
+
+        console.log(p);
+        console.log(p.id);
+        
+        /* Endre eller sette attributter til et objekt*/
+        p.setAttribute("class", "grønn");
+
+        /* Endre på CSS til et objekt*/
+        p.style.color = "pink";
+
+
+        // Bruker template strings og for-løkke til å lage en liste
+        for(let i=0; i<10; i++){
+            ol.innerHTML += `
+            <li>${i*5}</li>
+            `;
+        }
+
+    </script>
 </body>
 </html>
