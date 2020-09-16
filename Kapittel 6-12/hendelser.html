@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+        }
+
+        button{
+            width: 100px;
+        }
+
+        .grønn{
+            background-color: green;
+        }
+
+        .gul{
+            background-color: yellow;
+        }
+
+    </style>
+</head>
+<body>
+    <button id="btnGrønn">Grønn</button><button id="btnGul">Gul</button>
+    <div class="gul"></div>
+    <script>
+        let btnGul = document.querySelector("#btnGul");
+        let btnGrønn = document.querySelector("#btnGrønn");
+        let divEndrefarge = document.querySelector("div");
+
+        function endreFargeGrønn(){
+            divEndrefarge.setAttribute("class", "grønn");
+        }
+
+        function endreFargeGul(){
+            divEndrefarge.setAttribute("class", "gul");
+        }
+    </script>
+</body>
+</html>
