@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hvilken Ukedag?</title>
+</head>
+
+<body>
+    <script>
+/* Zellers algoritme
+
+Returnerer hvilken ukedag en gitt dato har.
+
+Argument (Number) D - Dagnummeret (1-31)
+Argument (Number) M - Månedsnummeret (1-12)
+Argument (Number) Y - Årstallet
+
+Return (String) - Ukedag
+*/
+function zellersAlgoritme(D, M, Y) {
+    // Sjekker om M er 1 eller 2
+    if(M === 1 || M === 2){
+        M += 12;
+        Y--;
+    }
+
+    let K = Y % 100;
+    let C = Math.trunc(Y/100);
+
+    let X = Math.trunc(2.6*M-5.39);
+    X += Math.trunc(K/4);
+    X += Math.trunc(C/4);
+    X += D + K - 2*C;
+
+    let rest = X % 7;
+    
+    if (rest<0){
+        console.log(rest);
+        rest += 7;
+    }
+
+    console.log(rest)
+
+    // Sjekker hva resten blir og returnerer ukedagen
+    if (rest === 0){
+        return "søndag";
+    }else if (rest === 1){
+        return "mandag";
+    }else if (rest === 2){
+        return "tirsdag";
+    }else if (rest === 3){
+        return "onsdag";
+    }else if (rest === 4){
+        return "torsdag";
+    }else if (rest === 5){
+        return "fredag";
+    }else{
+        return "lørdag";
+    }
+}
+
+// Tester algoritmen med fire ulike datoer
+if (zellersAlgoritme(8, 9, 2020, 20, 20) === "tirsdag"){
+    console.log("funksjonen virker :D");
+}else{
+    console.log("funksjonen virker ikke :(");
+}
+
+if (zellersAlgoritme(13, 8, 1976, 19, 76) === "fredag"){
+    console.log("funksjonen virker :D");
+}else{
+    console.log("funksjonen virker ikke :(");
+}
+
+if (zellersAlgoritme(11, 11, 1917, 19, 17) === "søndag"){
+    console.log("funksjonen virker :D");
+}else{
+    console.log("funksjonen virker ikke :(");
+}
+
+if (zellersAlgoritme(1, 1, 2000, 20, 00) === "lørdag"){
+    console.log("funksjonen virker :D");
+}else{
+    console.log("funksjonen virker ikke :(");
+}
+
+function ukedag(input){
+
+    const FEILMELDING = `Ogyldig input! '${input}' "Må være på formen 'D.M.Y' hvor 1<=D<=31 og 1<=M<=12.`;
+    if (input.split(".").length!==3){
+        console.log(FEILMELDING);
+        return;
+    }
+
+    // Henter ut D
+    let D = Number(input.substring(0, input.indexOf(".")));
+    //console.log("D", D);
+    let rest = input.substring(input.indexOf(".")+1, input.length);
+    if (isNaN(D)){
+        console.log(FEILMELDING);
+        return;
+    }
+
+    // Henter ut M
+    let M = Number(rest.substring(0, rest.indexOf(".")));
+    //console.log("M", M);
+    rest = rest.substring(rest.indexOf(".")+1, rest.length);
+    if (isNaN(M)){
+        console.log(FEILMELDING);
+        return;
+    }
+
+    // Henter ut Y
+    let Y = Number(rest);
+    //console.log("Y", Y);
+    if (isNaN(Y)){
+        console.log(FEILMELDING);
+        return;
+    }
+
+    // Sjekker om dagnummeret er innenfor korrekt intervall
+    if(!(1<=D && D<=31)){
+        console.log(FEILMELDING);
+        return;        
+    }
+
+    // Sjekker om månednummeret er innenfor korrekt intervall
+    if(!(1<=M && M<=12)){
+        console.log(FEILMELDING);
+        return;        
+    }
+
+    // Finner K og C
+    C = Math.trunc(Y/100);
+    K = Y % 100;
+
+    return zellersAlgoritme(D, M, Y, C, K);
+}
+
+// Tester den nye funksjonen ukedag :D
+let test = "9.4.1940";
+let dag = ukedag(test);
+if (typeof dag !== "undefined"){
+    console.log(`Datoen ${test} har ukedagen '${dag}''.`);
+}
+
+
+    </script>
+</body>
+
+</html>
