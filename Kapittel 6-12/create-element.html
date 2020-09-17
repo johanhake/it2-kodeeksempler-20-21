@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Element</title>
+    <style>
+        .rosa{
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <script>
+
+        let body = document.querySelector("body");
+
+        // Lager et avsnittelement
+        let avsnitt = document.createElement("p");
+        avsnitt.innerHTML = "Les noen nyheter ";
+
+        // Sette en klasse til et element alt 1
+        avsnitt.setAttribute("class", "rosa");
+
+        // Sette en klasse til et element alt 2
+        avsnitt.className = "rosa";
+
+        // Lager en lenke
+        let lenke = document.createElement("a");
+        lenke.innerHTML = "her";
+        lenke.href = "https://www.vg.no";
+        lenke.target = "_blank";
+
+        // Legger til lenken og en liten punktum
+        avsnitt.appendChild(lenke);
+        avsnitt.innerHTML += ".";
+
+        // Legger til avsnitt til body.
+        body.appendChild(avsnitt);
+
+
+    </script>
+</body>
+</html>
