@@ -25,8 +25,14 @@
     </style>
 </head>
 <body>
-    <button id="btnGrønn">Grønn</button><button id="btnGul">Gul</button>
+    <!-- Registrerer lytterfunksjon i HTML, men vanskelig å fjerne -->
+    <!-- <button id="btnGrønn" onclick="endreFargeGrønn()">Grønn</button>
+    <button id="btnGul" onclick="endreFargeGul()">Gul</button>-->
+
+    <button id="btnGrønn">Grønn</button>
+    <button id="btnGul">Gul</button>
     <div class="gul"></div>
+    <button onclick="fjernLytting()">Fjern klikk</button>
     <script>
         let btnGul = document.querySelector("#btnGul");
         let btnGrønn = document.querySelector("#btnGrønn");
@@ -39,6 +45,22 @@
         function endreFargeGul(){
             divEndrefarge.setAttribute("class", "gul");
         }
+
+        function fjernLytting(){
+            // Fjerner lytting ved å registrere en tom lytterfunksjon
+            btnGul.onclick = function(){};
+            btnGrønn.onclick = function(){};
+            //btnGrønn.removeEventListener("click", endreFargeGrønn);
+            //btnGul.removeEventListener("click", endreFargeGul);
+        }
+
+        // Registrerer lytterfunksjon i JavaScript, men gjør det gjerne i HTML! 
+        btnGul.onclick = endreFargeGul;
+        btnGrønn.onclick = endreFargeGrønn;
+        
+        //btnGrønn.addEventListener("click", endreFargeGrønn);
+        //btnGul.addEventListener("click", endreFargeGul);
+
     </script>
 </body>
 </html>
