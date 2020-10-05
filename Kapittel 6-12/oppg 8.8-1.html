@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monty Hall</title>
+    <style>
+        body {
+            background-color: #323232;
+            font-family: "Century Gothic", Arial, sans-serif;
+            color: #f2f2f2;
+        }
+
+        img:hover {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Monty Hall</h1>
+    <p>Hvilken dør vil du velge?</p>
+    <img id="r" src="bilder/rod.png" width="227" alt="Dør">
+    <img id="g" src="bilder/gronn.png" width="227" alt="Dør">
+    <img id="b" src="bilder/blaa.png" width="227" alt="Dør">
+    <p id="resultat"></p>
+
+    <script>
+        let rodDor = document.querySelector("#r");
+        let gronnDor = document.querySelector("#g");
+        let blaaDor = document.querySelector("#b");
+        let resultatTxt = document.querySelector("#resultat");
+
+        // Registrerer lytterfunksjonen
+        rodDor.onclick = sjekkDor;
+        gronnDor.onclick = sjekkDor;
+        blaaDor.onclick = sjekkDor;
+
+        // Bestemmer hvilken dør som bilden skal være bak
+        let bilDoer = "r";
+        let tilfeldig = Math.trunc(Math.random() * 3);
+
+        // Setter hvilken dør bilen skal være bak tilfeldig
+        if (tilfeldig === 0) {
+            bilDoer = "g";
+        } else if (tilfeldig === 1) {
+            bilDoer = "b";
+        }
+
+        // Lytterfunksjon med hendelsesobjekt (event)
+        function sjekkDor(event) {
+            // I event.target lagres DOM-objektet som trigget hendelsen
+            console.log(event)
+            console.log(event.target);
+
+            // Henter ut bilde-objektet som ble trykket på
+            let bilde = event.target;
+
+            // Sjekker hvilken dør som er valgt
+            // ########################### RØD DØR #################################
+            if (bilde.id === "r") {
+                console.log("Du trykket på den røde døren!");
+
+                // Hvis brukeren valgte døren med bil bak
+                if (bilDoer == "r") {
+
+                    // Vi skal åpne en av de to andre dørene
+                    // Bruker tilfeldige tall til å finne hvilken dør vi skal åpne
+                    tilfeldig = Math.trunc(Math.random() * 2);
+                    if (tilfeldig === 0) {
+                        blaaDor.src = "bilder/geit.png";
+                        // Gjør det umulig å klikke på døren igjen
+                        blaaDor.onclick = function () { };
+                    } else {
+                        gronnDor.src = "bilder/geit.png";
+                        // Gjør det umulig å klikke på døren igjen
+                        gronnDor.onclick = function () { };
+                    }
+
+                    // Hvis brukeren valgte en dør med geit bak
+                } else {
+                    // Hvis bilen er bak den grønne døren åpne den blå døren
+                    if (bilDoer == "g") {
+                        blaaDor.src = "bilder/geit.png";
+                        // Gjør det umulig å klikke på døren igjen
+                        blaaDor.onclick = function () { };
+
+                        // Hvis bilen er bak den blå døren åpne den grønne døren
+                    } else {
+                        gronnDor.src = "bilder/geit.png";
+                        // Gjør det umulig å klikke på døren igjen
+                        blaaDor.onclick = function () { };
+                    }
+                }
+
+            // ########################### GRØNN DØR #################################
+            } else if (bilde.id === "g") {
+                console.log("Du trykket på den grønne døren!");
+
+                // Hvis brukeren valgte døren med bil bak
+                if (bilDoer == "g") {
+
+                    // Vi skal åpne en av de to andre dørene
+                    // Bruker tilfeldige tall til å finne hvilken dør vi skal åpne
+                    tilfeldig = Math.trunc(Math.random() * 2);
+                    if (tilfeldig === 0) {
+                        blaaDor.src = "bilder/geit.png";
+                        // Gjør det umulig å klikke på døren igjen
+                        blaaDor.onclick = function () { };
+                    } else {
+                        rodDor.src = "bilder/geit.png";
+                        // Gjør det umulig å klikke på døren igjen
+                        rodDor.onclick = function () { };
+                    }
+
+                // Hvis brukeren valgte en dør med geit bak
+                } else {
+                    // Hvis bilen er bak den røde døren åpne den blå døren
+                    if (bilDoer == "r") {
+                        blaaDor.src = "bilder/geit.png";
+                        // Gjør det umulig å klikke på døren igjen
+                        blaaDor.onclick = function () { };
+
+                    // Hvis bilen er bak den blå døren åpne den røde døren
+                    } else {
+                        rodDor.src = "bilder/geit.png";
+                        // Gjør det umulig å klikke på døren igjen
+                        rodDor.onclick = function () { };
+                    }
+                }
+
+            // ########################### BLÅ DØR #################################
+            } else {
+                console.log("Du trykket på den blå døren!");
+                // Hvis brukeren valgte døren med bil bak
+                if (bilDoer == "b") {
+
+                    // Vi skal åpne en av de to andre dørene
+                    // Bruker tilfeldige tall til å finne hvilken dør vi skal åpne
+                    tilfeldig = Math.trunc(Math.random() * 2);
+                    if (tilfeldig === 0) {
+                        gronnDor.src = "bilder/geit.png";
+                        // Gjør det umulig å klikke på døren igjen
+                        gronnDor.onclick = function () { };
+                    } else {
+                        rodDor.src = "bilder/geit.png";
+                        // Gjør det umulig å klikke på døren igjen
+                        rodDor.onclick = function () { };
+                    }
+
+                // Hvis brukeren valgte en dør med geit bak
+                } else {
+                    // Hvis bilen er bak den røde døren åpne den grønne døren
+                    if (bilDoer == "r") {
+                        gronnDor.src = "bilder/geit.png";
+                        // Gjør det umulig å klikke på døren igjen
+                        gronnDor.onclick = function () { };
+
+                    // Hvis bilen er bak den grønne døren åpne den røde døren
+                    } else {
+                        rodDor.src = "bilder/geit.png";
+                        // Gjør det umulig å klikke på døren igjen
+                        rodDor.onclick = function () { };
+                    }
+                }
+            }
+        }
+        
+    </script>
+</body>
+
+</html>

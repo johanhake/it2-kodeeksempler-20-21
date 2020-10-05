@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monty Hall</title>
+    <style>
+        body{
+            background-color: #323232;
+            font-family: "Century Gothic", Arial, sans-serif;
+            color: #f2f2f2;
+        }
+
+        img:hover{
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Monty Hall</h1>
+    <p>Hvilken dør vil du velge?</p>
+    <img id="r" src="bilder/rod.png" width="227" alt="Dør">
+    <img id="g" src="bilder/gronn.png" width="227" alt="Dør">
+    <img id="b" src="bilder/blaa.png" width="227" alt="Dør">
+    <script>
+        let rodDor = document.querySelector("#r");
+        let gronnDor = document.querySelector("#g");
+        let blaaDor = document.querySelector("#b");
+
+        // Registrerer lytterfunksjonen
+        rodDor.onclick = sjekkDor;
+        gronnDor.onclick = sjekkDor;
+        blaaDor.onclick = sjekkDor;
+
+        // Bestemmer hvilken dør som bilden skal være bak
+        let bilDoer = "r";
+        let tilfeldig = Math.trunc(Math.random()*3);
+
+        // Setter hvilken dør bilen skal være bak tilfeldig
+        if (tilfeldig === 0){
+            bilDoer = "g";
+        }else if(tilfeldig === 1){
+            bilDoer = "b";
+        }
+
+        // Lytterfunksjon med hendelsesobjekt (event)
+        function sjekkDor(event){
+            // I event.target lagres DOM-objektet som trigget hendelsen
+            console.log(event)
+            console.log(event.target);
+
+            // Henter ut bilde-objektet som ble trykket på
+            let bilde = event.target;
+
+            // Fjerner mulighet å klikke
+            bilde.onclick = function(){};
+
+            // Sjekker om bilden som er klikket på er døren som er valgt til å ha bilen
+            if (bilde.id === bilDoer){
+                bilde.src = "bilder/bil.png";
+            }else{
+                bilde.src = "bilder/geit.png";
+            }
+
+            if(bilde.id === "r"){
+                console.log("Du trykket på den røde døren!");
+                /* Her skriver vi kode for hva som skjer etter vi har trykket 
+                   på den røde døren*/
+            }else if(bilde.id === "g"){
+                console.log("Du trykket på den grønne døren!");
+                /* Her skriver vi kode for hva som skjer etter vi har trykket 
+                   på den røde døren*/
+                }else{
+                console.log("Du trykket på den blå døren!");
+                /* Her skriver vi kode for hva som skjer etter vi har trykket 
+                   på den blå døren*/
+                }
+        }
+    </script>
+</body>
+</html>
