@@ -20,15 +20,26 @@
         p{
             background-color: #f05a3f;
             padding: 20px;
+            color: white;
         }
     </style>
 </head>
 <body>
-    <p>X-posisjon: </p>
-    <p>Y-posisjon: </p>
+    <p id="xPos">X-posisjon: </p>
+    <p id="yPos">Y-posisjon: </p>
 
     <script>
+        let xPos = document.querySelector("#xPos");
+        let yPos = document.querySelector("#yPos");
+        let body = document.querySelector("body");
 
+        // Lytterfunksjon for å vise posisjon
+        function visPosisjon(event){
+            xPos.innerHTML = "X-posisjon: " + event.clientX;
+            yPos.innerHTML = "Y-posisjon: " + event.clientY;
+        }
+
+        body.onclick = visPosisjon;
     </script>
 </body>
 </html>

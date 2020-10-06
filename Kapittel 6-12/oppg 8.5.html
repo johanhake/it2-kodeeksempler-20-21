@@ -33,12 +33,12 @@
         blaaDor.onclick = sjekkDor;
 
         // Bestemmer hvilken dør som bilden skal være bak
-        let bilDoer = "r";
+        let bilDoer = "b";
 
         // Lytterfunksjon med hendelsesobjekt (event)
         function sjekkDor(event){
             // I event.target lagres DOM-objektet som trigget hendelsen
-            console.log(event)
+            console.log("Hendelsesobjektet:", event)
             console.log(event.target);
 
             // Henter ut bilde-objektet som ble trykket på
