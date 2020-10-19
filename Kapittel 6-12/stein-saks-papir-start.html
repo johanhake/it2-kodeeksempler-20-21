@@ -19,12 +19,22 @@
         <p id="maskinpoeng">Maskin: 0</p>
         
         <!-- Bilder til spillet-->
-        <img src="bilder/spiller_stein.png" data-hva="stein" alt="Spiller stein">
-        <img src="bilder/spiller_saks.png" data-hva="saks" alt="Spiller saks">
-        <img src="bilder/spiller_papir.png" data-hva="papir" alt="Spiller papir">
+        <img src="bilder/spiller_stein.png" data-valg="stein" alt="Spiller stein" onclick="velg(event)">
+        <img src="bilder/spiller_saks.png" data-valg="saks" alt="Spiller saks" onclick="velg(event)">
+        <img src="bilder/spiller_papir.png" data-valg="papir" alt="Spiller papir" onclick="velg(event)">
         <img src="bilder/maskin_ukjent.png" id="maskin" alt="">
         
         <p id="info"></p>
     </div>
+
+    <script>
+
+        function velg(event){
+            let bilde = event.target;
+            let valg = bilde.dataset.valg;
+
+            console.log("Du valgte:", valg);
+        }
+    </script>
 </body>
 </html>
