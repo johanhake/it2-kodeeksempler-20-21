@@ -61,6 +61,9 @@
             // Henter ut den ENE radioknappen som er checked!
             let checkedRadio = document.querySelector("input[name=fått-oscar]:checked");
 
+            // Henter ALLE checkboxes som er valgt.
+            let checkedCheckboxes = document.querySelectorAll("input[type=checkbox]:checked");
+
             let skjemaEl = event.target;
 
             // Henter ut verdien til et input-element
@@ -72,7 +75,10 @@
             console.log("Aldersegrense:", skjemaEl.aldersgrenseSel.value);
             console.log("Fått Oscar?", checkedRadio.value)
 
-            console.log("Tjena Vetle!")
+            // Tøff forløkke som går igjennom alle checkboxer
+            for (let check of checkedCheckboxes){
+                console.log(check.value)
+            }
 
             skjemaEl.reset();
         }
