@@ -1,41 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skjema</title>
+    <link rel="stylesheet" href="brukerinput.css">
+    <style>
+        html {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
 </head>
+
 <body>
-<form>
-Tittel <input type="text" placeholder="Filmens tittel">
+    <form onsubmit="sendInn(event)">
+        <label for="tittelInp">Tittel</label><input id="tittelInp" type="text" placeholder="Filmens tittel" required>
 
-Beskrivelse
-<textarea placeholder="Kort beskrivelse av filmen" cols="30" rows="10"></textarea>
+        <label>Beskrivelse</label>
+        <textarea placeholder="Kort beskrivelse av filmen" cols="30" rows="10"></textarea>
 
-Årstall
-<input type="number">
+        <label>Årstall</label>
+        <input type="number" min="1850" id="årstallInp">
 
-Aldersgrense
-<select>
-    <option value="alle">Tillatt for alle</option>
-    <option value="7">7 år</option>
-    <option value="11">11 år</option>
-    <option value="15">15 år</option>
-    <option value="18">18 år</option>
-</select>
+        <label>Aldersgrense</label>
+        <select id="aldersgrenseSel">
+            <option value="alle">Tillatt for alle</option>
+            <option value="7">7 år</option>
+            <option value="11">11 år</option>
+            <option value="15">15 år</option>
+            <option value="18">18 år</option>
+        </select>
 
-Format
-<input type="checkbox" value="kino"> Kino
-<input type="checkbox" value="blueray"> Blueray
-<input type="checkbox" value="strømmetjeneste"> strømmetjeneste
-<input type="checkbox" value="tv">Tv
+        <label for="">Format</label>
+        <div class="checkboxes">
+            <input type="checkbox" value="kino" id="kinoInp"> <label for="kinoInp">Kino</label>
+            <input type="checkbox" value="blueray" id="blueRayInp"><label for="blueRayInp">Blueray</label>
+            <input type="checkbox" value="strømmetjeneste" id="strømmetjenesteInp"><label
+                for="strømmetjenesteInp">strømmetjeneste</label>
+            <input type="checkbox" value="tv" id="tvInp"><label for="tvInp">Tv</label>
+        </div>
 
-Fått Oscar?
-<input type="radio" value="Ja">Ja
-<input type="radio" value="Nei">Nei
+        <label for="">Fått Oscar?</label>
+        <div class="checkboxes">
+            <input type="radio" value="Ja" name="fått-oscar" id="jaInp"><label for="jaInp">Ja</label>
+            <input type="radio" value="Nei" name="fått-oscar" id="neiInp" checked><label for="neiInp">Nei</label>
+        </div>
+        <button>Registrer</button>
 
-<button>Registrer</button>
+    </form>
 
-</form>
+    <script>
+
+        // DOM
+        let tittelInp = document.querySelector("#tittelInp");
+
+        function sendInn(event){
+            event.preventDefault();
+
+            // Henter ut den ENE radioknappen som er checked!
+            let checkedRadio = document.querySelector("input[name=fått-oscar]:checked");
+
+            let skjemaEl = event.target;
+
+            // Henter ut verdien til et input-element
+            console.log("Tittel:", tittelInp.value);
+
+            // Henter ut inputelementene som er gitt en egen id fra form-elementet!
+            console.log("Tittel:", skjemaEl.tittelInp.value);
+            console.log("Årstall:", skjemaEl.årstallInp.value);
+            console.log("Aldersegrense:", skjemaEl.aldersgrenseSel.value);
+            console.log("Fått Oscar?", checkedRadio.value)
+
+            skjemaEl.reset();
+        }
+
+    </script>
 </body>
+
 </html>
