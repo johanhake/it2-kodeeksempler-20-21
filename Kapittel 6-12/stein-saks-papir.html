@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stein Saks og Papir</title>
+    <style>
+        html {
+            font-family: "Century Gothic", arial, sans-serif;
+            background-color: #ecf0f1;
+        }
+
+        #bilder {
+            display: grid;
+            grid-template-columns: repeat(3, 200px) 30px 200px;
+            align-items: end;
+            gap: 10px;
+        }
+
+        #bilder img {
+            transition: 0.125s;
+        }
+
+        .bruker-valg:hover {
+            cursor: pointer;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="innpakning">
+        <h1>Stein saks papir</h1>
+        <p id="info"></p>
+        <button onclick="nyttSpill()">Nytt spill?</button>
+        <p id="spiller-poeng">Spiller: 0</p>
+        <p id="maskin-poeng">Maskin: 0</p>
+
+        <!-- Bilder til spillet-->
+        <div id="bilder">
+            <img class="bruker-valg" src="bilder/spiller_stein.png" data-valg="stein" alt="Spiller stein">
+            <img class="bruker-valg" src="bilder/spiller_saks.png" data-valg="saks" alt="Spiller saks">
+            <img class="bruker-valg" src="bilder/spiller_papir.png" data-valg="papir" alt="Spiller papir">
+            <div></div>
+            <img src="bilder/maskin_ukjent.png" id="maskin" alt="">
+        </div>
+    </div>
+
+    <script>
+
+        // DOM
+        let maskinImg = document.querySelector("#maskin");
+        let infoTxt = document.querySelector("#info");
+        let spillerPoengTxt = document.querySelector("#spiller-poeng");
+        let maskinPoengTxt = document.querySelector("#maskin-poeng");
+        let brukerValgImgs = document.querySelectorAll(".bruker-valg");
+        let nyttSpillBtn = document.querySelector("button");
+
+        // Variabler
+        let maskinPoeng, spillerPoeng, maksPoeng, zIndex;
+
+        // Funksjon for å starte ett nytt spill
+        function nyttSpill() {
+            maskinPoeng = 0;
+            spillerPoeng = 0;
+            maksPoeng = 2;
+            zIndex = 20;
+
+            // Registrere lytterfunksjoner
+            registrereLytterfunksjoner();
+            nyttSpillBtn.style.display = "none";
+            infoTxt.innerHTML = "Velg et bilde!";
+            spillerPoengTxt.innerHTML = "Spiller: 0"; 
+            maskinPoengTxt.innerHTML = "Maskin: 0";           
+        }
+
+
+
+        // Lytterfunksjon for det å registrere et valg
+        function velg(event) {
+            let bilde = event.target;
+            let brukerValg = bilde.dataset.valg;
+
+            // Avregistrerer lytterfunksjoner
+            avRegistrereLytterfunksjoner();
+
+            // Velger tilfeldig bilde for maskinen
+            let tilfeldig = Math.trunc(Math.random() * 3);
+            let maskinValg = "papir";
+
+            if (tilfeldig === 0) {
+                maskinValg = "stein";
+            } else if (tilfeldig === 1) {
+                maskinValg = "saks";
+            }
+
+            // Bytter bilde på maskinen
+            maskinImg.src = `bilder/maskin_${maskinValg}.png`;
+
+            console.log("Du valgte:", brukerValg, "maskinen valgte:", maskinValg);
+
+            if (maskinValg === brukerValg) {
+                infoTxt.innerHTML = "Uavgjort!";
+            } else if (brukerValg === "stein") {
+                if (maskinValg === "saks") {
+                    giSpillerPoeng(bilde);
+                } else {
+                    giMaskinPoeng()
+                }
+            } else if (brukerValg === "saks") {
+                if (maskinValg === "papir") {
+                    giSpillerPoeng(bilde);
+                } else {
+                    giMaskinPoeng()
+                }
+            } else {
+                if (maskinValg === "stein") {
+                    giSpillerPoeng(bilde);
+                } else {
+                    giMaskinPoeng()
+                }
+            }
+
+            // Tids-delay for nytt valg
+            setTimeout(nyttValg, 2000);
+        }
+
+        // Funksjon som kjøres når det skal gjøres et nytt valg
+        function nyttValg() {
+
+            // Sjekker om noen har vunnet
+            if (spillerPoeng === maksPoeng) {
+                infoTxt.innerHTML = "Du vant!!!";
+                nyttSpillBtn.style.display = "block";
+            } else if (maskinPoeng === maksPoeng) {
+                infoTxt.innerHTML = "Maskinen vant :(";
+                nyttSpillBtn.style.display = "block";
+            } else {
+                maskinImg.src = "bilder/maskin_ukjent.png";
+                infoTxt.innerHTML = "Velg et bilde!";
+                registrereLytterfunksjoner();
+            }
+        }
+
+        // Registrere lytterfunksjoner
+        function registrereLytterfunksjoner() {
+            for (let img of brukerValgImgs) {
+                img.onclick = velg;
+                img.style.transform = "scale(1.0)";
+            }
+            maskinImg.style.transform = "scale(1.0)";
+        }
+
+        // Registrere lytterfunksjoner
+        function avRegistrereLytterfunksjoner() {
+            for (let img of brukerValgImgs) {
+                img.onclick = function () { };
+            }
+        }
+
+        // Gir maskinen et poeng
+        function giMaskinPoeng() {
+            maskinImg.style.transform = "scale(1.4)";
+            infoTxt.innerHTML = "Maskinen fikk poeng!";
+            maskinPoeng += 1;
+            maskinPoengTxt.innerHTML = "Maskin: " + maskinPoeng;
+        }
+
+        // Gir spilleren et poeng
+        function giSpillerPoeng(bilde) {
+            zIndex += 1;
+            bilde.style.zIndex = zIndex;
+            bilde.style.transform = "scale(1.4)";
+            infoTxt.innerHTML = "Spilleren fikk poeng!";
+            spillerPoeng += 1;
+            spillerPoengTxt.innerHTML = "Spiller: " + spillerPoeng;
+        }
+
+    </script>
+</body>
+
+</html>
