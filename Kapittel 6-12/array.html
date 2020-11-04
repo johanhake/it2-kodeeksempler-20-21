@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrays</title>
+</head>
+
+<body>
+    <script>
+        // Definerer tre arrays
+        let alternativer = ["stein", "saks", "papir"];
+        let resultat = [5, 6, 3, 8, 12, 7];
+        let avstand = ["Bergen", 450, "Trondheim", 520];
+
+        console.log("Første elementet:", alternativer[0]);
+        console.log("Element som ikke er i arrayen:", alternativer[3]);
+
+        let byIndeks = 0;
+        console.log("Avstand:", avstand[byIndeks], avstand[byIndeks + 1], "km");
+        byIndeks += 2;
+        console.log("Avstand:", avstand[byIndeks], avstand[byIndeks + 1], "km");
+
+
+        // Doble lister (flerdimensonale arrays)
+        let avstander = [
+            ["Bergen", "Trondheim", "Malmö"],
+            [450, 520, 620]
+        ];
+        console.log("Byer", avstander[0]); // Første listen
+        console.log("Avstander", avstander[1]); // Andre listen
+
+        byIndeks = 0;
+        console.log(avstander[0][byIndeks], avstander[1][byIndeks]);
+        byIndeks++;
+        console.log(avstander[0][byIndeks], avstander[1][byIndeks]);
+
+        // Løpe igjennom en array med for-løkke alternativ 1
+        for (let i = 0; i < alternativer.length; i++) {
+            let alternativ = alternativer[i];
+            console.log("Alternativ:", i + 1, alternativ);
+        }
+
+        // Løpe igjennom en array med for-løkke alternativ 2
+        for (let i of alternativer) {
+            console.log("Alternativ:", i);
+        }
+
+        // Legger til og fjerne elementer
+        console.log("resultat:", resultat)
+        resultat.push(34);
+        resultat.push(45);
+        console.log("resultat:", resultat)
+
+        console.log("Fjerner siste elementet:", alternativer.pop());
+        console.log(alternativer);
+
+        // Fjerne elementer inne i en array:
+        console.log("Indeksen til resultat 3 er:", resultat.indexOf(3));
+        resultat.splice(2, 1);
+        console.log("resultat:", resultat)
+
+        resultat.splice(2, 0, 78, 90);
+        console.log("Lagt til to gode resultat!", resultat);
+
+
+        
+    </script>
+</body>
+
+</html>

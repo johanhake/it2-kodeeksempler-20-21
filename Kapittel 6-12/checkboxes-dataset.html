@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="brukerinput.css">
+    <title>querySelectorALL</title>
+    <style>
+    body{
+        font-family: "Century Gothic", Arial, sans-serif;
+        font-size: 14px;
+    }
+
+    </style>
+</head>
+<body>
+    <h3>Handleliste</h3>
+    <div class="checkboxes"></div>
+    <ul></ul>
+    <p id="infoTxt">Total: pris 0 kr</p>
+
+    <script>
+
+        // DOM
+        let checkboxesDiv = document.querySelector(".checkboxes");
+        let ulEl = document.querySelector("ul");
+        let infoTxt = document.querySelector("#infoTxt");
+
+        // Handleliste!
+        let handleliste = [["melk", 14],
+                           ["smør", 25],
+                           ["monster", 50],
+                           ["cola", 15],
+                           ["sukker", 20],
+                           ["frukt", 23]];
+
+        // Går igjennom alle elementene i handlelisten og lager checkboxer for hvert av de
+        for (let element of handleliste) {
+            console.log(element);
+
+        }
+
+        // Lytterfunksjon for det å endre en verdi
+        function endreVerdi(){
+
+            // Finner prisen
+            let pris = 0;
+
+            // Sletter alle verdier i listen
+            ulEl.innerHTML = "";
+
+            // Henter alle inputelement
+            let alleChecked = document.querySelectorAll("input[type=checkbox]:checked");
+
+            // Går igjennom alle input-elementene og sjekker om de er checked
+            for (let element of alleChecked) {
+                ulEl.innerHTML += `<li>${element.dataset.vare}</li>`;
+                pris += Number(element.dataset.pris);
+            }
+
+            infoTxt.innerHTML = `Total pris: ${pris} kr.`
+
+        }
+
+    </script>
+</body>
+</html>
