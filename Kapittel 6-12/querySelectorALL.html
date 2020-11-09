@@ -35,6 +35,20 @@
     <p class="gul"> Trykk på meg! </p>
     <script>
     
+        let alleAvsnitt = document.querySelectorAll(".gul");
+
+        for (let pEl of alleAvsnitt){
+            pEl.onclick = byttFarge;
+        }
+
+    function byttFarge(event){
+        let pEl = event.target;
+        if(pEl.className == "gul"){
+            pEl.className = "rød";
+        }else{
+            pEl.className = "gul";
+        }
+    }
 
     </script>
 </body>

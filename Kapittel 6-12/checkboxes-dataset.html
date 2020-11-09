@@ -38,7 +38,16 @@
         // Går igjennom alle elementene i handlelisten og lager checkboxer for hvert av de
         for (let element of handleliste) {
             console.log(element);
-
+            let vare = element[0];
+            let pris = element[1];
+            checkboxesDiv.innerHTML += `
+            <input type="checkbox" 
+                   id="${vare}" 
+                   data-vare="${vare}"
+                   data-pris="${pris}"
+                   onchange="endreVerdi(event)">
+            <label for="${vare}">${vare}</label>
+            `;
         }
 
         // Lytterfunksjon for det å endre en verdi
