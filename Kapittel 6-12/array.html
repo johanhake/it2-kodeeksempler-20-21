@@ -64,6 +64,37 @@
         resultat.splice(2, 0, 78, 90);
         console.log("Lagt til to gode resultat!", resultat);
 
+        // Sortere resultat listen
+        resultat.sort();
+        console.log("Sortert array v0:", resultat);
+
+        // Sammenligner tall
+        function sammenlignTall_v1(a, b) {
+            if (a === b) {
+                return 0;
+            } else if (a > b) {
+                return 1;
+            } else {
+                return -1;
+            }
+        }
+
+        // Sorterer med sammenligningsfunksjon
+        resultat.sort(sammenlignTall_v1);
+        console.log("Sortert array v1:", resultat);
+
+        // Sammenligner tall
+        function sammenlignTall_v2(a, b) {
+            return a - b;
+        }
+
+        // Sorterer med sammenligningsfunksjon
+        resultat.sort(sammenlignTall_v2);
+        console.log("Sortert array v2:", resultat);
+
+        // Anonym funksjon med sortering i motsatt rekkefølge
+        resultat.sort(function(a,b){return b-a;});
+        console.log("Sortert array v3:", resultat);
 
         
     </script>

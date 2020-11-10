@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="brukerinput.css">
+    <title>querySelectorALL</title>
+    <style>
+        body {
+            font-family: "Century Gothic", Arial, sans-serif;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>Handleliste</h3>
+    <button onclick="sorterNavn()">Sorter etter navn</button>
+    <button onclick="sorterPris()">Sorter etter pris</button>
+    <div class="checkboxes"></div>
+    <ul></ul>
+    <p id="infoTxt">Total: pris 0 kr</p>
+
+    <script>
+
+        // DOM
+        let checkboxesDiv = document.querySelector(".checkboxes");
+        let ulEl = document.querySelector("ul");
+        let infoTxt = document.querySelector("#infoTxt");
+
+        // Handleliste!
+        let handleliste = [["melk", 14],
+        ["smør", 25],
+        ["monster", 50],
+        ["cola", 15],
+        ["sukker", 20],
+        ["frukt", 23]];
+
+        function lagCheckboxes() {
+
+            checkboxesDiv.innerHTML = "";
+
+            // Går igjennom alle elementene i handlelisten og lager checkboxer for hvert av de
+            for (let element of handleliste) {
+                console.log(element);
+                let vare = element[0];
+                let pris = element[1];
+                checkboxesDiv.innerHTML += `
+            <input type="checkbox" 
+                   id="${vare}" 
+                   data-vare="${vare}"
+                   data-pris="${pris}"
+                   onchange="endreVerdi(event)">
+            <label for="${vare}">${vare} - ${pris} kr</label>
+            `;
+            }
+        }
+
+        // Lytterfunksjon for sortering etter navn
+        function sorterNavn() {
+
+            // Sammenligner to elementer i handlelisten og sammenligner etter navn
+            function sammenlignNavn(a, b) {
+                if (a[0] === b[0]) {
+                    return 0;
+                } else if (a[0] > b[0]) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
+
+            // Sorterer handlelisten
+            handleliste.sort(sammenlignNavn);
+
+            // Lager checkboxes på nytt
+            lagCheckboxes();
+        }
+
+        // Lytterfunksjon for sortering etter pris
+        function sorterPris() {
+
+            function sammenlignPris(a, b) {
+                return a[1] - b[1];
+            }
+
+            // Sorterer handlelisten
+            handleliste.sort(sammenlignPris);
+
+            // Lager checkboxes på nytt
+            lagCheckboxes();
+        }
+
+        // Lytterfunksjon for det å endre en verdi
+        function endreVerdi() {
+
+            // Finner prisen
+            let pris = 0;
+
+            // Sletter alle verdier i listen
+            ulEl.innerHTML = "";
+
+            // Henter alle inputelement
+            let alleChecked = document.querySelectorAll("input[type=checkbox]:checked");
+
+            // Går igjennom alle input-elementene og sjekker om de er checked
+            for (let element of alleChecked) {
+                ulEl.innerHTML += `<li>${element.dataset.vare}</li>`;
+                pris += Number(element.dataset.pris);
+            }
+
+            infoTxt.innerHTML = `Total pris: ${pris} kr.`
+
+        }
+        
+        // Lager checkboxes på nytt
+        lagCheckboxes();
+    </script>
+</body>
+
+</html>
