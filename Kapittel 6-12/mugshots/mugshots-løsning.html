@@ -60,6 +60,14 @@
 
 <body>
     <h1>IT2 Mugshots</h1>
+    <div id="buttons">
+        <button onclick="sorterNavn('fornavn')">Sorter etter fornavn</button>
+        <button onclick="sorterNavn('etternavn')">Sorter etter Etternavn</button>
+        <button onclick="sorterNavn('klasse')">Sorter etter klasse</button>
+    </div>
+    <div class="checkboxes">
+        <input type="checkbox" id="synkende"><label for="synkende">Synkende</label>
+    </div>
     <div id="enkelt-elev">
 
     </div>
@@ -70,6 +78,7 @@
         let synkendeChk = document.querySelector("#synkende");
         let enkeltElevDiv = document.querySelector("#enkelt-elev");
 
+        let hvaListe = ["fornavn", "etternavn", "klasse"];
         let elevNavn = [
             ["Eskild", "Kamfjord", "3STE"],
             ["Felix", "Anthonisen", "3STA"],
@@ -87,6 +96,55 @@
             ["Vetle", "Svendsen", "3STC"]
         ];
 
+        // Returnerer en sammenligningsfunksjon som sorterer etter tekst etter indeks
+        function sammenligningsFunksjon(indeks) {
+            return function (a, b) {
+                if (a[indeks] === b[indeks]) {
+                    return 0;
+                } else if (a[indeks] > b[indeks]) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
+        }
+
+        function sorterNavn(sorterEtter) {
+
+            // Sletter main
+            main.innerHTML = "";
+
+            // Finner indeksen til det vi skal sortere etter
+            // hvaListe = ["fornavn", "etternavn", "klasse"];
+            // hvaListe.indexOf("etternavn") => 1
+            let indeks = hvaListe.indexOf(sorterEtter);
+
+            console.log("indeks", indeks);
+
+            // Sorterer elevNavn listen etter indeks
+            elevNavn.sort(sammenligningsFunksjon(indeks));
+
+            // Checker om det skal være synkende rekkefølge
+            if (synkendeChk.checked){
+                elevNavn.reverse();
+            }
+
+            // Går igjennom listen med elever og skriver ut den
+            for (let element of elevNavn) {
+                console.log(element);
+                // element => ["fornavn", "etternavn", "klasse"]
+                main.innerHTML += `
+            <article>
+                <img 
+                    onclick="visElev(event)"
+                    data-fornavn="${element[0]}"
+                    data-etternavn="${element[1]}"
+                    data-klasse="${element[2]}"
+                    src="${element[0]}.jpg">
+                <p>${element[0]} ${element[1]} ${element[2]}</p>
+            </article>`;
+            }
+        }
 
         // Lytterfunksjon som viser en elev
         function visElev(event) {
@@ -95,11 +153,13 @@
             let dataset = event.target.dataset;
 
             // Lager koden for enkeltelev diven. 
-            enkeltElevDiv.innerHTML = `
-            <img src="${dataset.fornavn}.jpg">
-            <p>${dataset.fornavn} ${dataset.etternavn} ${dataset.klasse}</p>`;
+            enkeltElevDiv.innerHTML = `<img src="${dataset.fornavn}.jpg">
+        <p>${dataset.fornavn} ${dataset.etternavn} ${dataset.klasse}</p>
+        `;
         }
 
+        // Sorterer først etter fornavn
+        sorterNavn("fornavn");
     </script>
 </body>
 
