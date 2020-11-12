@@ -96,36 +96,17 @@
             ["Vetle", "Svendsen", "3STC"]
         ];
 
-        // Sammenligningsfunksjon for det å sammenligne to elementers fornavn (index 0)
-        function sammenlignFornavn(a, b) {
-            if (a[0] === b[0]) {
-                return 0;
-            } else if (a[0] > b[0]) {
-                return 1;
-            } else {
-                return -1;
-            }
-        }
-
-        // Sammenligningsfunksjon for det å sammenligne to elementers etternavn (index 1)
-        function sammenlignEtternavn(a, b) {
-            if (a[1] === b[1]) {
-                return 0;
-            } else if (a[1] > b[1]) {
-                return 1;
-            } else {
-                return -1;
-            }
-        }
-
-        // Sammenligningsfunksjon for det å sammenligne to elementers fornavn (index 2)
-        function sammenlignKlasse(a, b) {
-            if (a[2] === b[2]) {
-                return 0;
-            } else if (a[2] > b[2]) {
-                return 1;
-            } else {
-                return -1;
+        // Returnerer en sammenligningsfunksjon som sorterer etter tekst etter indeks
+        function sammenligningsFunksjon(indeks) {
+            // Indeks for hvilken element i hver elev som skal sammenlignes.
+            return function (a, b) {
+                if (a[indeks] === b[indeks]) {
+                    return 0;
+                } else if (a[indeks] > b[indeks]) {
+                    return 1;
+                } else {
+                    return -1;
+                }
             }
         }
 
@@ -136,18 +117,18 @@
             // Sletter main
             main.innerHTML = "";
 
-            // Sorterer listen med elever med ulike sammenligningsfunksjoner basert
-            // på hva vi skal sortere etter. 
-            if (sorterEtter === "fornavn"){
-                elevNavn.sort(sammenlignFornavn);
-            }else if (sorterEtter === "etternavn"){
-                elevNavn.sort(sammenlignEtternavn);
-            }else{
-                elevNavn.sort(sammenlignKlasse);
-            }
+            // Finner indeksen til det vi skal sortere etter
+            // hvaListe = ["fornavn", "etternavn", "klasse"];
+            // hvaListe.indexOf("etternavn") => 1
+            let indeks = hvaListe.indexOf(sorterEtter);
+
+            console.log("indeks", indeks);
+
+            // Sorterer elevNavn listen etter indeks
+            elevNavn.sort(sammenligningsFunksjon(indeks));
 
             // Checker om det skal være synkende rekkefølge
-            if (synkendeChk.checked) {
+            if (synkendeChk.checked){
                 elevNavn.reverse();
             }
 
