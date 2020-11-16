@@ -1,7 +1,7 @@
 PSEUDOKODE FOR OPPGAVE 2
 
 VARIABLER: 
-   valgIgjen:   Antall valg brukeren har valgIgjen
+   valgIgjen:   Antall valg brukeren har igjen. Starter på 3!
    gevinstTall: Tilfeldig tall som viser hvor vinsten er
    imgEl:       Bilde-elementet som brukeren har klikket på
    valgtBilde:  Nummeret til bildet som blir klikket på
