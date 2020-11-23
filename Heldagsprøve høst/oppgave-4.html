@@ -30,10 +30,13 @@
         <h2></h2>
         <label for="modelSel">Model</label>
         <select id="modelSel" onchange="endreValg()"></select>
+
         <label for="fargeSel">Velg farge</label>
         <select id="fargeSel" onchange="endreValg()"></select>
+
         <label for="interiørSel">Velg interiør</label>
         <select id="interiørSel" onchange="endreValg()"></select>
+
         <label for="">Totalpris</label>
         <p></p>
     </div>
@@ -44,11 +47,11 @@
         let stillingsTyper = ["Lektor med tileggsutdanning", "Lektor", "Adjunkt"];
         let teslaModellListe = ["Model X", "Model S", "Model 3"];
 
-        // Model valg og priser
+        // Model valg og priser 2 dimensjonelle arrays!
         let modelLister = [
-            ["Performance", "Long range"],
-            ["Performance", "Long range"],
-            ["Performance", "Long range"]
+            ["Performance", "Long range"], // index=0, Lektor med tileggsutdanning
+            ["Performance", "Long range"], // index=1, Lektor
+            ["Performance", "Long range"]  // index=2, Adjunkt
         ];
         let modelPrisLister = [
             [1005000, 846000],
@@ -105,6 +108,8 @@
                 interiørSel.innerHTML = "";
                 overskrift.innerHTML = teslaModellListe[modelValg];
 
+
+                // modelValg = 0 
                 // Går igjennom alle model valgene og legger til korrekt valg
                 for (let i = 0; i < modelLister[modelValg].length; i++) {
                     let model = modelLister[modelValg][i];

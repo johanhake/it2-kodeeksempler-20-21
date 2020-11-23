@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Objekter i Arrays</title>
+    <style>
+        body {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        th {
+            cursor: pointer;
+        }
+
+        th:hover {
+            background-color: lightgrey;
+        }
+    </style>
+</head>
+
+<body>
+
+    <table>
+        <thead>
+            <tr>
+                <th onclick="skrivutElever('fornavn')">Fornavn</th>
+                <th onclick="skrivutElever('etternavn')">Etternavn</th>
+                <th onclick="skrivutElever('klasse')">Klasse</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+
+        // DOM
+        let tbody = document.querySelector("tbody");
+
+        let elevObjekt = [
+            {
+                "fornavn": "Eskild",
+                "etternavn": "Kamfjord",
+                "klasse": "3STE"
+            },
+            {
+                "fornavn": "Felix",
+                "etternavn": "Anthonisen",
+                "klasse": "3STA"
+            },
+            {
+                "fornavn": "Fredrik",
+                "etternavn": "Henriksen",
+                "klasse": "3STE"
+            },
+            {
+                "fornavn": "Helena",
+                "etternavn": "Larsen",
+                "klasse": "3STD"
+            },
+            {
+                "fornavn": "Ingvild",
+                "etternavn": "Sandven",
+                "klasse": "3STB"
+            },
+            {
+                "fornavn": "Magnus",
+                "etternavn": "Alstad",
+                "klasse": "3STE"
+            },
+            {
+                "fornavn": "Marius",
+                "etternavn": "Effersø",
+                "klasse": "3STC"
+            },
+            {
+                "fornavn": "Markus",
+                "etternavn": "Nord",
+                "klasse": "3STB"
+            },
+            {
+                "fornavn": "Michael",
+                "etternavn": "Eilertsen",
+                "klasse": "3STA"
+            },
+            {
+                "fornavn": "Oskar",
+                "etternavn": "Lothe",
+                "klasse": "3STE"
+            },
+            {
+                "fornavn": "Sam",
+                "etternavn": "Kanaan",
+                "klasse": "3STD"
+            },
+            {
+                "fornavn": "Sigurd",
+                "etternavn": "Dynna",
+                "klasse": "3STC"
+            },
+            {
+                "fornavn": "Sondre",
+                "etternavn": "Bærø",
+                "klasse": "3STA"
+            },
+            {
+                "fornavn": "Vetle",
+                "etternavn": "Svendsen",
+                "klasse": "3STC"
+            }
+        ];
+
+        function skrivutElever(sorterEtter) {
+
+            // Sorterer elevlisten
+            if (sorterEtter === "fornavn") {
+                elevObjekt.sort(sammenlignFornavn);
+            } else if (sorterEtter === "etternavn") {
+                elevObjekt.sort(sammenlignEtternavn);
+            } else {
+                elevObjekt.sort(sammenlignKlasse);
+            }
+
+            tbody.innerHTML = "";
+
+            // Løkke som går igjennom alle elevobjektene i listen
+            for (let i = 0; i < elevObjekt.length; i++) {
+                let elev = elevObjekt[i];
+
+                // Bygger opp en rad i tabellen 
+                let rad = "<tr>"
+                for (let hva in elev) {
+                    console.log(hva, elev[hva]);
+                    rad += `<td>${elev[hva]}</td>`;
+                }
+                rad += "</tr>";
+                tbody.innerHTML += rad;
+            }
+        }
+
+        /* Sammenligningsfunksjon
+         * 
+         * Argument: a - Et objekt i en list
+         * Argument: b - Et annet objekt i den samme listen
+         * 
+         * Retur: Number, 0: fornavn er like, 
+         *                1: fornavn i a er større enn i b, 
+         *               -1: fornavn i b er større enn i a
+         */
+        function sammenlignFornavn(a, b) {
+            if (a.fornavn === b.fornavn) {
+                return 0;
+            } else if (a.fornavn > b.fornavn) {
+                return 1;
+            } else {
+                return -1;
+            }
+        }
+
+        function sammenlignEtternavn(a, b) {
+            if (a.etternavn === b.etternavn) {
+                return 0;
+            } else if (a.etternavn > b.etternavn) {
+                return 1;
+            } else {
+                return -1;
+            }
+        }
+
+        function sammenlignKlasse(a, b) {
+            if (a.klasse === b.klasse) {
+                return 0;
+            } else if (a.klasse > b.klasse) {
+                return 1;
+            } else {
+                return -1;
+            }
+        }
+
+    </script>
+</body>
+
+</html>

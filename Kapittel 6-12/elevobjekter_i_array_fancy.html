@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Objekter i Arrays</title>
+    <style>
+        body {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        th {
+            cursor: pointer;
+        }
+
+        th:hover {
+            background-color: lightgrey;
+        }
+    </style>
+</head>
+
+<body>
+
+    <table>
+        <thead>
+            <tr>
+                <th onclick="skrivutElever('fornavn')">Fornavn</th>
+                <th onclick="skrivutElever('etternavn')">Etternavn</th>
+                <th onclick="skrivutElever('klasse')">Klasse</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+
+        // DOM
+        let tbody = document.querySelector("tbody");
+
+        let elevObjekt = [
+            {
+                "fornavn": "Eskild",
+                "etternavn": "Kamfjord",
+                "klasse": "3STE"
+            },
+            {
+                "fornavn": "Felix",
+                "etternavn": "Anthonisen",
+                "klasse": "3STA"
+            },
+            {
+                "fornavn": "Fredrik",
+                "etternavn": "Henriksen",
+                "klasse": "3STE"
+            },
+            {
+                "fornavn": "Helena",
+                "etternavn": "Larsen",
+                "klasse": "3STD"
+            },
+            {
+                "fornavn": "Ingvild",
+                "etternavn": "Sandven",
+                "klasse": "3STB"
+            },
+            {
+                "fornavn": "Magnus",
+                "etternavn": "Alstad",
+                "klasse": "3STE"
+            },
+            {
+                "fornavn": "Marius",
+                "etternavn": "Effersø",
+                "klasse": "3STC"
+            },
+            {
+                "fornavn": "Markus",
+                "etternavn": "Nord",
+                "klasse": "3STB"
+            },
+            {
+                "fornavn": "Michael",
+                "etternavn": "Eilertsen",
+                "klasse": "3STA"
+            },
+            {
+                "fornavn": "Oskar",
+                "etternavn": "Lothe",
+                "klasse": "3STE"
+            },
+            {
+                "fornavn": "Sam",
+                "etternavn": "Kanaan",
+                "klasse": "3STD"
+            },
+            {
+                "fornavn": "Sigurd",
+                "etternavn": "Dynna",
+                "klasse": "3STC"
+            },
+            {
+                "fornavn": "Sondre",
+                "etternavn": "Bærø",
+                "klasse": "3STA"
+            },
+            {
+                "fornavn": "Vetle",
+                "etternavn": "Svendsen",
+                "klasse": "3STC"
+            }
+        ];
+
+        // Funksjon som returnerer en sammenligningsfunksjon for en egenskap
+        function sammenlignEtter(sorterEtter){
+            return function(a,b){
+                if (a[sorterEtter]==b[sorterEtter]){
+                    return 0;
+                }else if(a[sorterEtter] > b[sorterEtter]){
+                    return 1;
+                }else{
+                    return -1;
+                }
+            }
+        }
+
+        function skrivutElever(sorterEtter) {
+
+            // Sorterer etter verdien i "sorterEtter"
+            elevObjekt.sort(sammenlignEtter(sorterEtter));
+
+            tbody.innerHTML = "";
+
+            // Løkke som går igjennom alle elevobjektene i listen
+            for (let i = 0; i < elevObjekt.length; i++) {
+                let elev = elevObjekt[i];
+
+                // Bygger opp en rad i tabellen 
+                let rad = "<tr>"
+                for (let hva in elev) {
+                    console.log(hva, elev[hva]);
+                    rad += `<td>${elev[hva]}</td>`;
+                }
+                rad += "</tr>";
+                tbody.innerHTML += rad;
+            }
+        }
+    </script>
+</body>
+
+</html>
