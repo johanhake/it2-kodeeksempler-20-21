@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="brukerinput.css">
+
+    <style>
+        html{
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    </style>
+
+</head>
+
+<body>
+    <form onsubmit="sjekkSvar(event)">
+        <h1>Quiz</h1>
+        <div id="spørsmål"></div>
+        <button>Sjekk svar</button>
+        <p class="resultat"></p>
+        
+    </form>
+</body>
+<script>
+    // DOM
+    let spørsmålDiv = document.querySelector("#spørsmål");
+    let resultatTxt = document.querySelector(".resultat");
+
+    // Liste med spørsmålsobjekt
+    let listeMedSpørsmål = [
+        {
+            "spørsmål": "Hva heter Norges hovedstad?",
+            "alternativer": ["Oslo", "Stockholm", "København"],
+            "fasit": ["riktig", "galt", "galt"]
+        },
+        {
+            "spørsmål": "Hvilke byer ligger i Europa?",
+            "alternativer": ["Oslo", "New York", "London"],
+            "fasit": ["riktig", "galt", "riktig"]
+        },
+        {
+            "spørsmål": "Hvilken innsjø er Norges største?",
+            "alternativer": ["Røssvatnet", "Mjøsa", "Femunden"],
+            "fasit": ["galt", "riktig", "galt"]
+        },
+        {
+            "spørsmål": "Hva heter Sveriges beste fotballag?",
+            "alternativer": ["Malmö FF", "Malmö FF", "Malmö FF", "Malmö FF"],
+            "fasit": ["riktig", "riktig", "riktig", "riktig"]
+        }
+    ];
+
+    // Legger til et spørsmål i quizen
+    function leggeTilSpørsmål(spørsmålsObjekt) {
+
+        console.log("legger in spørsmål", spørsmålsObjekt);
+
+        // Lager et <p>-element som skal innholde spørsmålet
+        let spørsmålTxt = document.createElement("p");
+
+        // Skriver spørsmålet
+        spørsmålTxt.innerHTML = `<h3>${spørsmålsObjekt.spørsmål}</h3>`;
+
+        // Henter ut alternativene fra spørsmålsobjektet
+        let alternativer = spørsmålsObjekt.alternativer;
+        let fasit = spørsmålsObjekt.fasit;
+
+        // Går igjennom alternativene og lager checkboxer med labels
+        for (let i=0; i<alternativer.length; i++){
+            /// Fortsett her...
+        }
+
+        // Legger til spørsmålet til DOM
+        spørsmålDiv.appendChild(spørsmålTxt);
+    }
+
+    // Legger til alle spørsmål i listen
+    for (let spørsmålsObjekt of listeMedSpørsmål) {
+        leggeTilSpørsmål(spørsmålsObjekt);
+    }
+
+    // Lytterfunksjon for å sjekke svarene
+    function sjekkSvar(event) {
+
+        // Henter ut alle checked checkedboxes.
+        let checked = document.querySelectorAll("input[type=checkbox]:checked");
+
+        // Fortsett her...
+    }
+
+
+</script>
+
+</html>
