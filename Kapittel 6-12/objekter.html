@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objekter</title>
+</head>
+<body>
+    <script>
+
+        let elev = {
+            fornavn: "Ingvild",
+            etternavn: "Sandven",
+            klasse: "3STB"
+        };
+
+        console.log("fornavn:", elev.fornavn);
+        console.log("etternavn:", elev["etternavn"])
+
+        let nøkkel = "fornavn";
+        console.log(nøkkel+":", elev[nøkkel])
+
+        nøkkel = "etternavn"
+        console.log(nøkkel+":", elev[nøkkel])
+
+        // Endre verdier i et objekt
+        elev.fornavn = "Markus";
+        elev["etternavn"] = "Nord";
+
+        // Bruker for løkke 
+        for(let nøkkel in elev){
+            console.log(nøkkel+":", elev[nøkkel])
+        }
+
+        let klasse = {
+            "Ingvild":{
+                fornavn: "Ingvild",
+                etternavn: "Sandven",
+                klasse: "3STB",
+            },
+            "Markus":{
+                fornavn: "Markus", 
+                etternavn: "Nord",
+                klasse: "3STB"
+            }
+        };
+
+        console.log(klasse["Ingvild"]["etternavn"]);
+
+        
+    </script>
+</body>
+</html>

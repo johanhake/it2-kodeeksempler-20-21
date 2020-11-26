@@ -19,14 +19,13 @@
         <h1>Quiz</h1>
         <div id="spørsmål"></div>
         <button>Sjekk svar</button>
-        <p class="resultat"></p>
-        
+        <p id="resultat"></p>
     </form>
 </body>
 <script>
     // DOM
     let spørsmålDiv = document.querySelector("#spørsmål");
-    let resultatTxt = document.querySelector(".resultat");
+    let resultatTxt = document.querySelector("#resultat");
 
     // Liste med spørsmålsobjekt
     let listeMedSpørsmål = [
@@ -53,7 +52,7 @@
     ];
 
     // Legger til et spørsmål i quizen
-    function leggeTilSpørsmål(spørsmålsObjekt) {
+    function leggeTilSpørsmål(spørsmålsObjekt, spørsmålsNr) {
 
         console.log("legger in spørsmål", spørsmålsObjekt);
 
@@ -67,27 +66,50 @@
         let alternativer = spørsmålsObjekt.alternativer;
         let fasit = spørsmålsObjekt.fasit;
 
+        let div_str = "<div class='checkboxes'>"
         // Går igjennom alternativene og lager checkboxer med labels
         for (let i=0; i<alternativer.length; i++){
-            /// Fortsett her...
+            // Skriver ut checkboxene
+            div_str += `<input type="checkbox" data-facit="${fasit[i]}" id="S${spørsmålsNr}_${i}">
+            <label for="S${spørsmålsNr}_${i}">${alternativer[i]}</label>
+            `;
         }
+
+        div_str += "</div>";
+        spørsmålTxt.innerHTML += div_str;
 
         // Legger til spørsmålet til DOM
         spørsmålDiv.appendChild(spørsmålTxt);
     }
 
     // Legger til alle spørsmål i listen
-    for (let spørsmålsObjekt of listeMedSpørsmål) {
-        leggeTilSpørsmål(spørsmålsObjekt);
+    for (let j=0; j<listeMedSpørsmål.length; j++) {
+        leggeTilSpørsmål(listeMedSpørsmål[j], j);
     }
 
     // Lytterfunksjon for å sjekke svarene
     function sjekkSvar(event) {
 
+        event.preventDefault();
+
         // Henter ut alle checked checkedboxes.
         let checked = document.querySelectorAll("input[type=checkbox]:checked");
 
-        // Fortsett her...
+        let riktige = 0;
+        let feil = 0;
+
+        for (let svar of checked){
+
+            // Sjekker om svaret er riktig!
+            if(svar.dataset.facit === "riktig"){
+                riktige++;
+            }else{
+                feil++;
+            }
+        }
+
+        resultatTxt.innerHTML =`Du fikk: ${riktige} riktige og ${feil} feil svar!`;
+
     }
 
 
