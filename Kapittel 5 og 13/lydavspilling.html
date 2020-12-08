@@ -22,12 +22,27 @@
 </head>
 <body>
     <main>
-        <img src="bilder/bass_blek.png" alt="">
-        <img src="bilder/gitar_blek.png" alt="">
-        <img src="bilder/orgel_blek.png" alt="">
-        <img src="bilder/trommer_blek.png" alt="">
-        <img src="bilder/piano_blek.png" alt="">
+        <img src="bilder/bass_blek.png" onclick="spillLyd(event)" data-instrument="bass" alt="">
+        <img src="bilder/gitar_blek.png" onclick="spillLyd(event)" data-instrument="gitar" alt="">
+        <img src="bilder/orgel_blek.png" onclick="spillLyd(event)" data-instrument="orgel" alt="">
+        <img src="bilder/trommer_blek.png" onclick="spillLyd(event)" data-instrument="trommer" alt="">
+        <img src="bilder/piano_blek.png"  onclick="spillLyd(event)" data-instrument="piano" alt="">
     </main>
 
+    <audio src="lyd/piano.mp3"></audio>
+    <script>
+        let audio = document.querySelector("audio");
+
+        function spillLyd(event){
+            let bilde = event.target;
+            let instrument = bilde.dataset.instrument;
+
+            console.log(bilde, instrument);
+            audio.src = `lyd/${instrument}.mp3`;
+            audio.load();
+            audio.play();
+        }
+
+    </script>
 </body>
 </html>
