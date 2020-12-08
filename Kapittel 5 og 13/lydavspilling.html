@@ -50,10 +50,10 @@
             }
         }
 
-
         // Sette på/av instrumenter
         function spillLyd(event) {
             
+            // Henter ut informasjon om bilden som er klikket. 
             let bilde = event.target;
             let instrument = bilde.dataset.instrument;
             let audioKlikk = document.getElementById(instrument);
@@ -64,7 +64,7 @@
                 startAvspilling();
             }
 
-            // Sjekekr om lyden spilles eller ikke
+            // Sjekker om lyden spilles eller ikke
             if(audioKlikk.volume < 0.1){
                 audioKlikk.volume = 1.0;
                 bilde.src = `bilder/${instrument}_sort.png`;
