@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas</title>
+    <style>
+        body{
+            background-color: black;
+            color: white;
+        }
+
+        canvas{
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Canvas eksempel</h1>
+    <canvas width="1000" height="600"></canvas>
+    <script>
+        // DOM 
+        let canvas = document.querySelector("canvas");
+        let ctx = canvas.getContext("2d");
+
+        ctx.beginPath();
+        ctx.moveTo(100, 100);
+        ctx.lineTo(100, 500);
+        ctx.lineTo(700, 500);
+        ctx.lineTo(700, 100);
+        ctx.lineTo(100, 100);
+        ctx.closePath();
+
+        ctx.strokeStyle = "brown";
+        ctx.lineWidth = 5;
+        ctx.fillStyle = "yellow"
+        ctx.stroke();
+        ctx.fill();
+        
+        ctx.beginPath();
+        ctx.arc(400, 300, 100, Math.PI, 0);
+        ctx.closePath();
+        ctx.stroke();
+
+    </script>
+</body>
+</html>
