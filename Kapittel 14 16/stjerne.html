@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stjerne</title>
+</head>
+
+<body>
+    <h1>Stjerner</h1>
+    <canvas height="600" width="1000"></canvas>
+    <script>
+        // DOM 
+        let canvas = document.querySelector("canvas");
+        let ctx = canvas.getContext("2d");
+
+        // Tegner en stjerne
+        function tegnStjerne(ctx, xStart, yStart, radius, takker) {
+
+            let tau = 2*Math.PI;
+
+            // Hvor mange takker skal vi "hoppe" over når vi trekker streken
+            let dPhi = 1+(takker-3)/2;
+            console.log(dPhi);
+
+            // Finner vinkelen som skal hoppes over. 
+            dPhi*=tau/takker;
+
+            // Starter stien
+            ctx.beginPath();
+            ctx.moveTo(xStart+radius, yStart);
+            phi=0;
+            for(let i = 0; i<takker; i++){
+                phi += dPhi;
+                console.log(phi/tau*360)
+
+                // Trekker linjen!
+                ctx.lineTo(xStart + radius*Math.cos(phi),
+                           yStart - radius*Math.sin(phi));
+            }
+            ctx.closePath();
+            ctx.stroke();
+
+        }
+
+        tegnStjerne(ctx, 100, 500, 100, 5);
+        tegnStjerne(ctx, 500, 500, 100, 7);
+
+    </script>
+</body>
+
+</html>
