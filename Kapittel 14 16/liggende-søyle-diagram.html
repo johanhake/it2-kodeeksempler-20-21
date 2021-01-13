@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Søylediagram</title>
+    <style>
+        canvas {
+            border: black 2px solid;
+        }
+    </style>
+</head>
+<body>
+<canvas width="900" height="300"></canvas>
+<script>
+    // DOM
+    let canvas = document.querySelector("canvas");
+    let ctx = canvas.getContext("2d");
+
+    // Sortert data om ukedager
+    let data = [
+        {
+            beskrivelse: "Mandag",
+            verdi: 5
+        },{
+            beskrivelse: "Tirsdag",
+            verdi: 3
+        },{
+            beskrivelse: "Onsdag",
+            verdi: 1
+        },{
+            beskrivelse: "Torsdag",
+            verdi: 2
+        },{
+            beskrivelse: "Fredag",
+            verdi: 6
+        },{
+            beskrivelse: "Lørdag",
+            verdi: 4
+        },{
+            beskrivelse: "Søndag",
+            verdi: 5
+        },
+    ];
+
+    let aksjekurs = [
+        {
+            beskrivelse: 'Januari',
+            verdi: 100,
+        }, {
+            beskrivelse: 'Februari',
+            verdi: 20,
+        }, {
+            beskrivelse: 'Mars',
+            verdi: 70,
+        }, {
+            beskrivelse: 'April',
+            verdi: 150,
+        }, {
+            beskrivelse: 'Mai',
+            verdi: 140,
+        }, {
+            beskrivelse: 'Juni',
+            verdi: 20,
+        }, {
+            beskrivelse: 'Juli',
+            verdi: 40,
+        }];
+
+
+    /* Tegner et liggende soylediagram
+     *
+     *  Argument data(array): En liste med objekter
+     */
+    function tegnLiggendeSoylediagram(data) {
+
+        // Parametrer
+        let xStart = 150;
+        let soyleHoyde = 30;
+        let mellomrom = 10;
+        
+    }
+
+    tegnLiggendeSoylediagram(aksjekurs);
+
+</script>
+</body>
+</html>
