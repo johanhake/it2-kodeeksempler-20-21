@@ -65,6 +65,9 @@
         }, {
             beskrivelse: 'Juli',
             verdi: 40,
+        },{
+            beskrivelse: 'August',
+            verdi: 180,
         }];
 
 
@@ -72,18 +75,51 @@
      *
      *  Argument data(array): En liste med objekter
      */
-    function tegnLiggendeSoylediagram(data) {
+    function tegnLiggendeSoylediagram(dataListe) {
 
-        console.log("Data:", data);
+        console.log("Data:", dataListe);
 
         // Parametrer
-        let xStart = 150;
+        let xStart = 200;
         let soyleHoyde = 30;
         let mellomrom = 10;
-        
+
+        // Setter høyden på canvas
+        canvas.height  = mellomrom + (mellomrom + soyleHoyde)*dataListe.length;
+
+        // Parametrer for tekst
+        ctx.textAlign = "right";
+        ctx.font = "24px Arial";
+        ctx.textBaseline = "top";
+
+        // Finner maks
+        let maks = 0;
+        for (let data of dataListe){
+            if (maks < data.verdi){
+                maks = data.verdi;
+            }
+        }
+
+        // Lager en vekt som viser hvor lang lengste søyle blir
+        let vekt = (canvas.width - mellomrom - xStart)/maks;
+
+        // For løkke som går igjennom dataene
+        for (let i=0; i < dataListe.length; i++){
+
+            let data = dataListe[i];
+
+            ctx.fillStyle = `hsl(${i*360/dataListe.length}, 100%, 50%)`;
+            ctx.fillRect(xStart, mellomrom + i*(mellomrom + soyleHoyde),
+                        data.verdi*vekt, soyleHoyde);
+
+            ctx.fillStyle = "black";
+            ctx.fillText(`${data.beskrivelse}(${data.verdi})`, 
+                        xStart - mellomrom, 
+                        mellomrom + i*(mellomrom + soyleHoyde));
+        }
     }
 
-    tegnLiggendeSoylediagram(data);
+    tegnLiggendeSoylediagram(aksjekurs);
 
 </script>
 </body>
