@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HighCharts</title>
+</head>
+
+<body>
+
+    <div id="diagram"></div>
+
+    <script>
+        let data = [
+            {
+                beskrivelse: "Mandag",
+                verdi: 5
+            }, {
+                beskrivelse: "Tirsdag",
+                verdi: 3
+            }, {
+                beskrivelse: "Onsdag",
+                verdi: 1
+            }, {
+                beskrivelse: "Torsdag",
+                verdi: 2
+            }, {
+                beskrivelse: "Fredag",
+                verdi: 6
+            }, {
+                beskrivelse: "Lørdag",
+                verdi: 4
+            }, {
+                beskrivelse: "Søndag",
+                verdi: 5
+            },
+        ];
+
+        let aksjekurs = [
+            {
+                beskrivelse: 'Januari',
+                verdi: 100,
+            }, {
+                beskrivelse: 'Februari',
+                verdi: 20,
+            }, {
+                beskrivelse: 'Mars',
+                verdi: 70,
+            }, {
+                beskrivelse: 'April',
+                verdi: 150,
+            }, {
+                beskrivelse: 'Mai',
+                verdi: 140,
+            }, {
+                beskrivelse: 'Juni',
+                verdi: 20,
+            }, {
+                beskrivelse: 'Juli',
+                verdi: 40,
+            }, {
+                beskrivelse: 'August',
+                verdi: 180,
+            }];
+
+        Highcharts.chart('div-id', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Tittel'
+            },
+            xAxis: {
+                categories: ['Kategori 1', 'Kategori 2'],
+                title: {
+                    text: 'Hva viser x verdiene'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Hva viser y verdiene',
+                },
+            },
+            series: data_liste,
+        });
+
+    </script>
+</body>
+
+</html>
