@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.highcharts.com/highcharts.src.js"></script>
     <title>HighCharts</title>
 </head>
 
@@ -14,75 +15,75 @@
     <script>
         let data = [
             {
-                beskrivelse: "Mandag",
-                verdi: 5
+                name: "Mandag",
+                data: [5, 4]
             }, {
-                beskrivelse: "Tirsdag",
-                verdi: 3
+                name: "Tirsdag",
+                data: [3, 2]
             }, {
-                beskrivelse: "Onsdag",
-                verdi: 1
+                name: "Onsdag",
+                data: [1, 3]
             }, {
-                beskrivelse: "Torsdag",
-                verdi: 2
+                name: "Torsdag",
+                data: [2, 5]
             }, {
-                beskrivelse: "Fredag",
-                verdi: 6
+                name: "Fredag",
+                data: [6, 3]
             }, {
-                beskrivelse: "Lørdag",
-                verdi: 4
+                name: "Lørdag",
+                data: [4, 1]
             }, {
-                beskrivelse: "Søndag",
-                verdi: 5
+                name: "Søndag",
+                data: [5, 1]
             },
         ];
 
         let aksjekurs = [
             {
-                beskrivelse: 'Januari',
-                verdi: 100,
+                name: 'Januari',
+                data: [100],
             }, {
-                beskrivelse: 'Februari',
-                verdi: 20,
+                name: 'Februari',
+                data: [20],
             }, {
-                beskrivelse: 'Mars',
-                verdi: 70,
+                name: 'Mars',
+                data: [70],
             }, {
-                beskrivelse: 'April',
-                verdi: 150,
+                name: 'April',
+                data: [150],
             }, {
-                beskrivelse: 'Mai',
-                verdi: 140,
+                name: 'Mai',
+                data: [140],
             }, {
-                beskrivelse: 'Juni',
-                verdi: 20,
+                name: 'Juni',
+                data: [20],
             }, {
-                beskrivelse: 'Juli',
-                verdi: 40,
+                name: 'Juli',
+                data: [40],
             }, {
-                beskrivelse: 'August',
-                verdi: 180,
+                name: 'August',
+                data: [180],
             }];
 
-        Highcharts.chart('div-id', {
+        Highcharts.chart('diagram', {
             chart: {
                 type: 'column'
             },
             title: {
-                text: 'Tittel'
+                text: 'Aktivitet i uken'
             },
             xAxis: {
-                categories: ['Kategori 1', 'Kategori 2'],
+                categories: ['Treningstimer', 'Skole'],
                 title: {
-                    text: 'Hva viser x verdiene'
+                    text: ''
                 }
             },
             yAxis: {
                 title: {
-                    text: 'Hva viser y verdiene',
-                },
+                    text: 'Timer',
+                }
             },
-            series: data_liste,
+            series: data,
         });
 
     </script>
