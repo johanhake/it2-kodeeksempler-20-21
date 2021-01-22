@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Oppgave 1</title>
+</head>
+<body>
+    <script>
+        
+        ctx.beginPath();
+        // Følgende kode gjør hva?
+        ctx.arc(x - mellomRom, y + mellomRom + stolRadius, 
+                stolRadius, pi/2, 3*pi/2);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.beginPath();
+        // Følgende kode gjør hva?
+        ctx.arc(x + mellomRom + bordBredde, y + mellomRom + stolRadius, 
+                stolRadius, 3*pi/2, pi/2);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+    </script>
+</body>
+</html>

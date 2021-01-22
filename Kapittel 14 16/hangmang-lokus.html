@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hangman</title>
+    <style>
+        body{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        #innpakning {
+            width: 600px;
+            margin: auto;
+        }
+
+        canvas {
+            background-color: white;
+            border: black 1px solid;
+            opacity: 1;
+        }
+
+        input[type="text"] {
+            width: 30%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="innpakning ">
+
+        <h1> Hangman </h1>
+
+        <p id="sjanserIgjen"> Antall sjanser igjen: </p>
+        <p id="riktigeBokstaver"> Dine bokstaver: </p>
+        <p id="brukteBokstaver"> Gjettede bokstaver: </p>
+
+        <canvas width="600" height="400" id="mittCanvas"></canvas>
+
+        <p id="mottaBokstav ">
+        <form onsubmit="mottaBokstav(event)">
+            <input type="text" name="bokstav" id="bokstav" required autofocus>
+            <button id="knapp">Test bokstav</button>
+        </form>
+        </p>
+
+    </div>
+
+    <script>
+        // DOM
+        let canvas = document.querySelector("#mittCanvas");
+        let ctx = canvas.getContext("2d");
+
+        // Henter inn tekstfeltet
+        let tekstfeltEl = document.querySelector("#bokstav");
+
+        // Henter inn de tre p-elementene
+        let sjanserIgjenEl = document.querySelector("#sjanserIgjen");
+        let riktigeBokstaverEl = document.querySelector("#riktigeBokstaver");
+        let brukteBokstaverEl = document.querySelector("#brukteBokstaver");
+
+        // Henter inn knappen
+        let knappEl = document.querySelector("#knapp");
+
+        // Variabel som inneholder lø sningsordet
+        let losningsord = "LONDON";
+
+        // Array som inneholder alle brukte bokstaver
+        let brukteBokstaver = [];
+
+        // Array som inneholder riktige bokstaver
+        let riktigeBokstaver = ["_", "_", "_", "_", "_", "_"];
+
+        // Variabel som inneholder antall sjanser spilleren skal få
+        let antallSjanser = 6;
+
+        // Tegner opp galgen
+        tegnGalge();
+
+        // Viser antall bokstaver i lø sningsordet
+        riktigeBokstaverEl.innerHTML = "Riktige bokstaver: " + riktigeBokstaver;
+
+        // Funksjon som kjører når knappen trykkes
+        function mottaBokstav(event) {
+
+            event.preventDefault();
+
+            // Henter bokstaven i tekstfeltet
+            let gjettetBokstav = tekstfeltEl.value;
+
+            // Gjør bokstaven stor (upper case)
+            gjettetBokstav = gjettetBokstav.toUpperCase();
+
+            // Sjekker om bokstaven allerede er gjettet
+            // ( indexOf returnerer -1 hvis bokstaven ikke er i arrayen )
+            if (brukteBokstaver.indexOf(gjettetBokstav) === -1) {
+
+                // Dytter bokstaven inn i brukte bokstaver
+                brukteBokstaver.push(gjettetBokstav);
+
+                // Sjekker om bokstaven er i kodeordet
+                if (losningsord.indexOf(gjettetBokstav) === -1) {
+                    // Ikke i kodeordet
+                    antallSjanser -= 1;
+
+                    if (antallSjanser === 5) {
+                        tegnHode();
+                    } else if (antallSjanser === 4) {
+                        tegnKropp();
+                    } else if (antallSjanser === 3) {
+                        tegnVenstreArm();
+                    } else if (antallSjanser === 2) {
+                        tegnHoyreArm();
+                    } else if (antallSjanser === 1) {
+                        tegnVenstreBein();
+                    } else if (antallSjanser === 0) {
+                        tegnHoyreBein();
+                        alert("Du tapte !");
+                    }
+
+                } else {
+                    // I kodeordet
+                    // Løper gjennom kodeordet for flere mulige
+                    // tilfeller av samme bokstav
+                    for (let i = 0; i < losningsord.length; i++) {
+                        // Hvis bokstav i i løsningsordet er den gjettede bokstaven
+                        if (losningsord[i] === gjettetBokstav) {
+                            // Sett inn gjettet bokstav på posisjon i
+                            // (i riktigeBokstaver )
+                            riktigeBokstaver[i] = gjettetBokstav;
+                        }
+                    }
+                }
+            } else {
+                // Hvis bokstaven allerede er gjettet , gjør vi ingenting
+                alert("Bokstaven er allerede gjettet!");
+            }
+
+            // Sorterer de brukte bokstavene
+            brukteBokstaver.sort();
+
+            // Skriver ut informasjon om brukte bokstaver ,
+            // riktige bokstaver og antall sjanser igjen    
+            brukteBokstaverEl.innerHTML = "Brukte bokstaver: " + brukteBokstaver;
+            riktigeBokstaverEl.innerHTML = "Riktige bokstaver: " + riktigeBokstaver;
+            sjanserIgjenEl.innerHTML = "Antall sjanser igjen: " + antallSjanser;
+
+            // Sletter forrige gjetning
+            event.target.reset();
+
+        }
+
+        function tegnGalge() {
+            ctx.beginPath();
+            ctx.moveTo(100, 320); // Nederst til venstre
+            ctx.lineTo(100, 300); // Rett opp
+            ctx.lineTo(500, 300); // Mot høyre
+            ctx.lineTo(500, 320); // Nederst til høre
+            ctx.moveTo(200, 300); // Bunnen av "stolpen"
+            ctx.lineTo(200, 20); // Til toppen av "stolpen"
+            ctx.lineTo(350, 20); // Mot høyre
+            ctx.lineTo(350, 50); // Litt ned
+            ctx.lineWidth = 5;
+            ctx.stroke();
+        }
+
+        function tegnHode() {
+            ctx.beginPath();
+            ctx.arc(350, 75, 25, 0, Math.PI * 2); // Sirkel med radius 25
+            ctx.stroke();
+        }
+
+        function tegnKropp() {
+            ctx.beginPath();
+            ctx.moveTo(350, 100);
+            ctx.lineTo(350, 225);
+            ctx.stroke();
+        }
+
+        function tegnVenstreArm() {
+            ctx.beginPath();
+            ctx.moveTo(350, 125);
+            ctx.lineTo(300, 175);
+            ctx.stroke();
+        }
+
+        function tegnHoyreArm() {
+            ctx.beginPath();
+            ctx.moveTo(350, 125);
+            ctx.lineTo(400, 175);
+            ctx.stroke();
+        }
+
+        function tegnVenstreBein() {
+            ctx.beginPath();
+            ctx.moveTo(350, 225);
+            ctx.lineTo(300, 275);
+            ctx.stroke();
+        }
+
+        function tegnHoyreBein() {
+            ctx.beginPath();
+            ctx.moveTo(350, 225);
+            ctx.lineTo(400, 275);
+            ctx.stroke();
+        }
+    </script>
+
+</body>
+
+</html>
