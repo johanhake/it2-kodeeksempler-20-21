@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Oppgave 1</title>
+</head>
+<body>
+<canvas height="300" width="600" style="border: 2px black solid"></canvas>
+<script>
+    // Oppgave 1a
+
+    // DOM
+    let canvas = document.querySelector("canvas");
+    let ctx = canvas.getContext("2d");
+
+    // Parametrer
+    let bordFyll = "#ff6600";
+    let stolFyll = "#d4aa00";
+    const pi = Math.PI;
+    let bordBredde = 40;
+    let mellomRom = 5;
+    let stolRadius = 15;
+
+     // Funksjon som tegner to vertikale stoler
+     function tegnToVeritkaleStoler(x, y){
+
+        // Setter fyllfarge
+        ctx.fillStyle = "#d4aa00";
+
+        ctx.beginPath();
+
+        // Tegner en sirkelbue med senter i (x-mellomrom, y+mellomRom+stolRadius) og radius stolRadius,
+        // med startvinkel pi/2 og sluttvinkel 3/2*pi
+        ctx.arc(x - mellomRom, 
+                y + mellomRom + stolRadius, 
+                stolRadius, 
+                pi/2, 
+                3*pi/2);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.beginPath();
+        // Tegner en sirkelbue med senter i (x+mellomrom+bordbredde, y+mellomRom+stolRadius) og 
+        // radius stolRadius, med startvinkel 3/2*pi og sluttvinkel 1/2*pi
+        ctx.arc(x + mellomRom + bordBredde, y + mellomRom + stolRadius, stolRadius, 3*pi/2, pi/2, );
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+    }
+
+    // Funksjon som tegner to horisontale stoler
+    function tegnToHorisontaleStoler(x, y){
+
+        // Setter fyllfarge
+        ctx.fillStyle = "#d4aa00";
+
+        ctx.beginPath();
+        ctx.arc(x + mellomRom + stolRadius, y - mellomRom , stolRadius, pi, 0);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(x + mellomRom + stolRadius, y + bordBredde + mellomRom , stolRadius, 0, pi);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+    }
+
+    /* Tegner et bord med stoler
+
+       Argument x (Number) : x verdien for overste venstre hjørnet til bordet
+       Argument y (Number) : y verdien for overste venstre hjørnet til bordet
+       Argument antallRader (Number) : setter antallet stolrader til bordet
+       Argument retning (String) : bestemmer retningen til bordet. Enten "horistontal" eller "vertikal".
+     */
+    function tegnBordOgStoler(x, y, antallRader, retning){
+
+        ctx.fillStyle = bordFyll;
+
+        // Tegner bordet
+        if (retning === "horistontal") {
+
+            // Tegner horistontalt bord
+            ctx.fillRect(x, y, bordBredde*antallRader, bordBredde);
+            ctx.strokeRect(x, y, bordBredde*antallRader, bordBredde);
+
+            // Tegner stolene
+            for (let i = 0; i < antallRader; i++) {
+                tegnToHorisontaleStoler(x+i*bordBredde, y);
+            }
+        }else{
+            // Tegner horistontalt bord
+            ctx.fillRect(x, y, bordBredde, bordBredde*antallRader);
+            ctx.strokeRect(x, y, bordBredde, bordBredde*antallRader);
+
+            // Tegner stolene
+            for (let i = 0; i < antallRader; i++) {
+                tegnToVeritkaleStoler(x, y+i*bordBredde);
+            }
+        }
+    }
+
+    // Tegner to bord
+    tegnBordOgStoler(40, 200, 3, "horistontal")
+    tegnBordOgStoler(400, 200, 2, "vertikal")
+
+</script>
+</body>
+</html>

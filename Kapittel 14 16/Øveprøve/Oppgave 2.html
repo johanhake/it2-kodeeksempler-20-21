@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Oppgave 2</title>
+    <script src="highcharts.js"></script>
+    <style>
+        body{
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+<body>
+<div id="diagram"></div>
+<h2>Velg by</h2>
+<select onchange="byttBy(event)">
+    <option value="oslo">Oslo</option>
+    <option value="ski">Ski</option>
+</select>
+</body>
+<script>
+
+    // Variabler
+    let data = {
+        ski : [
+            {name : "Grunnskole", data: [5815]},
+            {name : "Videregående", data: [8826]},
+            {name : "Universitet kort", data: [6310]},
+            {name : "Universitet lang", data: [2481]},
+        ],
+
+        oslo : [
+            {name : "Grunnskole", data: [112683]},
+            {name : "Videregående", data: [144955]},
+            {name : "Universitet kort", data: [165753]},
+            {name : "Universitet lang", data: [111688]},
+        ]
+    };
+
+    // Lager relative verdier for ski
+    let sumski = 0;
+    let sumoslo = 0;
+    for (let i=0; i < 4; i++){
+        sumski += data["ski"][i].data[0];
+        sumoslo += data["oslo"][i].data[0];
+    }
+
+    for (let i=0; i < 4; i++){
+        data["ski"][i].data[0] /= sumski;
+        data["ski"][i].data[0] *= 100;
+        data["oslo"][i].data[0] /= sumoslo;
+        data["oslo"][i].data[0] *= 100;
+    }
+
+    function tegnSoyleDiagram(bydata, by) {
+
+        Highcharts.chart('diagram', {
+            chart: {
+                type: 'column'
+                },
+            title: {
+                text: `Høyeste fullført utdanningsnivå i ${by}`
+                },
+            xAxis: {
+                },
+            yAxis: {
+                title: {
+                    text: 'Prosentfordeling'
+                }
+            },
+            series: bydata,
+        });        
+    }
+
+    function byttBy(event){
+        let nyBy = event.target.value;
+        let tittel = nyBy[0].toUpperCase() + nyBy.slice(1, nyBy.length);
+        tegnSoyleDiagram(data[nyBy], tittel);
+    }
+
+    tegnSoyleDiagram(data["oslo"], "Oslo");
+
+</script>
+</html>
