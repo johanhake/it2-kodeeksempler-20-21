@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Position eksempel</title>
+
+    <style>
+        body{
+            background-color: black;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        main{
+            background-color: tomato;
+            margin: 100px;
+            height: 500px;
+            width: 800px;
+            position: static;
+        }
+
+        main div{
+            width: 100px;
+            height: 100px;
+            background-color: lightblue;
+            padding: 5px;
+        }
+
+        #absolute{
+            position: static;
+            left: 50px;
+            top: 5px;
+        }
+
+        #relative{
+            position: static;
+            top:-20px;
+        }
+
+        #fixed{
+            position: static;
+            top: 0px;
+            left: 50vw;
+        }
+
+    </style>
+
+</head>
+<body>
+    <main>
+        <div id="absolute">
+            absolute
+        </div>
+        <div id="relative">
+            relative
+        </div>
+        <div id="fixed">
+            fixed
+        </div>
+    </main>
+</body>
+</html>
