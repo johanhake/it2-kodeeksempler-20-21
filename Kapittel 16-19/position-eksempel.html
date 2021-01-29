@@ -14,9 +14,9 @@
         main{
             background-color: tomato;
             margin: 100px;
-            height: 500px;
+            height: 5500px;
             width: 800px;
-            position: static;
+            position: relative;
         }
 
         main div{
@@ -24,21 +24,23 @@
             height: 100px;
             background-color: lightblue;
             padding: 5px;
+            border: solid 1px black;
         }
 
         #absolute{
-            position: static;
-            left: 50px;
-            top: 5px;
+            position: absolute;
+            left: -50px;
+            top: 150px;
         }
 
         #relative{
-            position: static;
-            top:-20px;
+            position: relative;
+            top:200px;
+            left: 200px;
         }
 
         #fixed{
-            position: static;
+            position: fixed;
             top: 0px;
             left: 50vw;
         }
@@ -51,11 +53,11 @@
         <div id="absolute">
             absolute
         </div>
-        <div id="relative">
-            relative
-        </div>
         <div id="fixed">
             fixed
+        </div>
+        <div id="relative">
+            relative
         </div>
     </main>
 </body>
