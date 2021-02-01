@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?> 
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" 
+            "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"> 
+<svg width="480" height="320" xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"> 
+    <g style="stroke:black" > 
+        <line x1="50" y1="50" x2="50" y2="50" style="stroke-width:2;" > 
+            <animate attributeName="x2" from="50" to="200" begin="0s" dur="500ms" fill = "freeze"/> 
+        </line> 
+        <line x1="200" y1="50" x2="200" y2="50" style="stroke-width:2;" > 
+            <animate attributeName="y2" from="50" to="100" begin="500ms" dur="500ms" fill = "freeze"/> 
+        </line> 
+        <line x1="200" y1="100" x2="200" y2="100" style="stroke-width:2;" > 
+            <animate attributeName="x1" from="200" to="50" begin="1000ms" dur="500ms" fill = "freeze"/> 
+        </line> 
+        <line x1="50" y1="100" x2="50" y2="100" style="stroke-width:2;" > 
+            <animate attributeName="y1" from="100" to="50" begin="1500ms" dur="500ms" fill = "freeze"/> 
+        </line> 
+    </g> 
+</svg> 
