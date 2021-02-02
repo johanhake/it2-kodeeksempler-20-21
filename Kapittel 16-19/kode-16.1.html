@@ -13,14 +13,14 @@
 
         body{
             background-color: #323232;
-            cursor: initial; /* Skjuler muspekeren */
+            cursor: none; /* Skjuler muspekeren */
             overflow: hidden; /* hindrer scrolbar */
         }
 
         div{
             width: 50px;
             height: 50px;
-            border-radius: 0%;
+            border-radius: 50%;
             position: absolute;
             left: 100px;
             top: 100px;
@@ -28,7 +28,7 @@
         }
     </style>
 </head>
-<body onmousemove="flyttSirkel()">
+<body onmousemove="flyttSirkel(event)">
     <div></div>
 
     <script>
@@ -36,8 +36,10 @@
         // DOM
         let sirkelEl = document.querySelector("div");
 
-        function flyttSirkel(){
-            
+        function flyttSirkel(event){
+            sirkelEl.style.left = (event.clientX-25) + "px";
+            sirkelEl.style.top = (event.clientY-25) + "px";
+            sirkelEl.style.backgroundColor = `hsl(${event.clientX}, ${event.clientY*0.1}%, 50%)`;
         }
 
     </script>
