@@ -8,22 +8,30 @@
 	<title>Fade inn ut</title>
 	<style>
 		#innpakning {
-
+			border: 5px solid brown;
+			width: 400px;
+			height: 300px;
 		}
 
 		#innpakning img {
+			position: absolute;
+			width: 400px;
+			transition: 1000ms;
+		}
 
+		.usynlig{
+			opacity: 0;
 		}
 	</style>
 </head>
 
 <body>
 	<div id="innpakning">
-		<img style="opacity:1" src="bilder/dompap.jpg" data-fugl="Dompap">
-		<img src="bilder/graspurv.jpg">
-		<img src="bilder/kjottmeis.jpg">
-		<img src="bilder/svartmeis.jpg">
-		<img src="bilder/blameis.jpg">
+		<img src="bilder/dompap.jpg">
+		<img class="usynlig" src="bilder/graspurv.jpg">
+		<img class="usynlig" src="bilder/kjottmeis.jpg">
+		<img class="usynlig" src="bilder/svartmeis.jpg">
+		<img class="usynlig" src="bilder/blameis.jpg">
 	</div>
 
 	<script>
@@ -31,8 +39,13 @@
 		let bildeIndeks = 0;
 
 		function byttBilde() {
-
+			bildeListe[bildeIndeks].classList.toggle("usynlig");
+  			bildeIndeks = (bildeIndeks + 1) % bildeListe.length;
+			bildeListe[bildeIndeks].classList.toggle("usynlig");
+			setTimeout(byttBilde, 1000);
 		}
+
+		byttBilde();
 	</script>
 </body>
 
