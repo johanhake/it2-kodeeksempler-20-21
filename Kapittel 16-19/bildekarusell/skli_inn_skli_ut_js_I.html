@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Skli inn skli ut</title>
     <style>
-        body{
+        body {
             background-color: #e0e0e0;
         }
 
         #innpakning {
-            overflow: visable;
+            overflow: hidden;
             width: 400px;
             height: 300px;
             border: darkred 8px solid;
@@ -21,51 +22,59 @@
             position: absolute;
             width: 400px;
             height: 300px;
-            left: -400px;
+            transform: translateX(-400px);
         }
-
     </style>
 </head>
+
 <body>
-<div id="innpakning">
-    <img src="bilder/dompap.jpg">
-    <img src="bilder/graspurv.jpg">
-    <img src="bilder/kjottmeis.jpg">
-    <img src="bilder/svartmeis.jpg">
-    <img src="bilder/blameis.jpg">
-</div>
+    <div id="innpakning">
+        <img src="bilder/dompap.jpg">
+        <img src="bilder/graspurv.jpg">
+        <img src="bilder/kjottmeis.jpg">
+        <img src="bilder/svartmeis.jpg">
+        <img src="bilder/blameis.jpg">
+    </div>
 
-<script>
+    <script>
 
-    // DOM
-    let bildeListe = document.querySelectorAll("#innpakning img");
-    const bildeBredde = 400;
-    const tid = 3000;
+        // DOM
+        let bildeListe = document.querySelectorAll("#innpakning img");
+        const bildeBredde = 400;
+        const tid = 3000;
 
-    const timing = {
-        /* Fortsett her */
-    };
+        const timing = {
+            duration: tid/3,
+            fill: "forwards"
+        };
 
-    let innFraHoyre = [
-        /* Fortsett her */
-    ];
+        // Keyframes for å skli inn fra høyre
+        let innFraHoyre = [
+            { transform: `translateX(${bildeBredde}px)` },
+            { transform: `translateX(0)` }
+        ];
 
-    let utTilVenstre = [
-        /* Fortsett her */
-    ];
+        // Keyframes for å skli ut til høyre
+        let utTilVenstre = [
+            { transform: `translateX(0)` },
+            { transform: `translateX(${-bildeBredde}px)` }
+        ];
 
-    // Hvilket bilde presenteres
-    let bildeIndeks = 0;
+        // Hvilket bilde presenteres
+        let bildeIndeks = 0;
 
+        // Flytter bildene et hakke til venstre
+        function flytt() {
+            bildeListe[bildeIndeks].animate(utTilVenstre, timing);
+            bildeIndeks = (bildeIndeks + 1) % bildeListe.length;
+            bildeListe[bildeIndeks].animate(innFraHoyre, timing);
+            setTimeout(flytt, tid);
+        }
 
-    // Flytter bildene et hakke til venstre
-    function flytt(){
-        /* Fortsett her */
-    }
+        flytt();
 
-    flytt();
-
-</script>
+    </script>
 
 </body>
+
 </html>
