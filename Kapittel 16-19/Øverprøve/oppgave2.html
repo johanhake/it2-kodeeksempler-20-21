@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="nb">
+<head>
+    <meta charset="UTF-8">
+    <title>Frukt!</title>
+    <link href="https://fonts.googleapis.com/css?family=Akronim&display=swap" rel="stylesheet">     
+    <style>
+        #bakgrunn {
+            position: relative;
+            width: 600px;
+            height: 300px;
+            background-color: greenyellow;
+            overflow: hidden;
+            border: 2px black solid;
+        }
+
+        #bakgrunn * {
+            position: absolute;
+        }
+
+        #eple {
+            top: 5px;
+            height: 90px;
+            animation: fremOgTilbake 2s ease-in-out alternate infinite;
+        }
+
+        #pere {
+            top: 105px;
+            height: 90px;
+            animation: fremOgTilbake 2s 1s ease-in-out alternate infinite;
+        }
+
+        #banan {
+            top: 205px;
+            height: 90px;
+            animation: fremOgTilbake 2s 2s ease-in-out alternate infinite;
+        }
+
+        #tekst {
+            font-family: 'Akronim', sans-serif;
+            position: absolute;
+            color: red;
+            font-weight: bold;
+            font-size: 4em;
+            text-shadow: black 1px 1px 1px, 
+                         black -1px 1px 1px, 
+                         black 1px -1px 1px,
+                         black -1px -1px 1px;
+            top: 70px;
+            left: 360px;
+            animation: utOgInn  1s infinite alternate;
+        }
+
+        @keyframes utOgInn{
+            0% {transform: rotate(30deg) scale(0.9)}
+            100% {transform: rotate(30deg) scale(1.1)}
+        }
+
+        #bilde {
+            position: absolute;
+            height: 200px;
+            right: 20px;
+            top: 30px;
+            opacity:0;
+        }
+
+        #kostnadsTekst {
+            position: absolute;
+            font-family: sans-serif;
+            font-weight: bold;
+            font-size: 3em;
+            right: 20px;
+            top: 240px;
+            opacity:0;
+        }
+
+        @keyframes fremOgTilbake{
+            0% {
+                left: 10px;
+            }
+            100% {
+                left: 210px;
+            }
+        }
+</style>
+
+</head>
+<body>
+<div id="bakgrunn">
+    <img src="bilder/eple-ikon.png" id="eple"
+         data-pris="15" onclick="oppdaterBilde(event)">
+    <img src="bilder/pere-ikon.png" id="pere"
+         data-pris="10" onclick="oppdaterBilde(event)">
+    <img src="bilder/banan-ikon.png" id="banan"
+         data-pris="12" onclick="oppdaterBilde(event)">
+
+    <div id="tekst">Frukt bonanza!</div>
+
+    <img src="bilder/eple.png" id="bilde">
+
+    <div id="kostnadsTekst">15 kr/kg</div>
+
+</div>
+<script>
+    
+    // DOM
+    let bilde = document.querySelector("#bilde");
+    let kostnadsTekst = document.querySelector("#kostnadsTekst");
+    let tekst = document.querySelector("#tekst");
+    let animasjon = {playState:"paused"};
+
+    // Animasjonskontrol for høyre del
+    let tekstKeyframes = [{opacity: 0},
+                             {opacity: 0},
+                             {opacity: 1}];
+    let bildeKeyframes = [{opacity: 1},
+                          {opacity: 1},
+                          {opacity: 0}];
+    let bildeTimings = {duration: 8000};
+
+    // Funksjon for å oppdatere animasjonen for høyre del
+    function oppdaterBilde(event){
+        if (animasjon.playState === "running"){
+            return;
+        }
+        let frukt = event.target.id;
+        let pris = event.target.dataset.pris;
+        bilde.src = `bilder/${frukt}.png`;
+        kostnadsTekst.innerHTML = `${pris} kr/kg`;
+        animasjon = bilde.animate(bildeKeyframes, bildeTimings);
+        kostnadsTekst.animate(bildeKeyframes, bildeTimings);
+        tekst.animate(tekstKeyframes, bildeTimings);
+    }
+
+</script>
+</body>
+</html>
