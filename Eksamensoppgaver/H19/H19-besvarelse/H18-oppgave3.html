@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppgave 3</title>
+    <link rel="stylesheet" href="brukerinput.css">
+    <style>
+        *{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #txtTreningsøkt{
+            display: block;
+        }
+
+        table{
+            border-collapse: collapse;
+            border: 1px solid black;
+            margin: 1em 0
+        }
+
+        td, th{
+            border: 1px solid black;
+            width: 10em;
+            text-align: center;
+        }
+
+        th{
+            background-color: lightslategray;
+            color: white;
+        }
+
+        tr:nth-child(odd){
+            background-color: lightgrey;
+        }
+    </style>
+</head>
+<body>
+    <h3>Valg av muskelgruppe og øvelse</h3>
+    <form onsubmit="velgAktivitet(event)">
+        <select id="muskelgrupp" onchange=velgMuskelgrupp(event) required>
+            <option value="">Velg muskelgruppe</option>
+        </select>
+        <select id="aktivitet" required>
+            <option value="">Velg muskelgruppe først</option>        
+        </select>
+        <button>Velg aktivitet</button>
+    </form>
+
+    <div id="txtTreningsøkt">
+        <h3>Valgt muskelgruppe og aktivitet</h3>
+        <div id="txtVisAktivitet"></div>
+        <form onsubmit="registrerSett(event)">
+            <label for="inpRepetisjoner">Antall repetisjoner</label>
+            <input type="number" min=1 max=15 id="inpRepetisjoner" placeholder="repetisjoner">
+            <label for="inpMotstand">Motstand (kg)</label>
+            <input type="number" min=5 max=150 step="5" id="inpMotstand" placeholder="motstand">
+            <button>Registrer sett</button>
+        </form>
+        <table>
+            <thead>
+                <tr><th>Sett</th><th>Repetisjoner</th><th>Motstand</th></tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <div>Treningsvolum: <span id="txtTreningsvolum"></span> kg</div>
+    </div>
+</body>
+<script>
+
+    /*
+   Tema for gjennomgangen:
+        Forankring i HTML element
+		Hendelser og lytterfunksjoner.
+		Bruk av flerdimensjonale datastrukturer
+		Bruk av løkker for å lage HTML
+		Bygge inn hendelser i dynamisk generert kode. (Blir IKKE dekket)
+
+    */
+
+
+    // DOM
+    let selMuskelgruppe = document.querySelector("#muskelgrupp");
+    let selAktivitet = document.querySelector("#aktivitet");
+    let txtVisAktivitet = document.querySelector("#txtVisAktivitet");
+    let txtTreningsøkt = document.querySelector("#txtTreningsøkt");
+    let tblTreningsøkt = document.querySelector("tbody");
+    let txtTreningsvolum = document.querySelector("#txtTreningsvolum");
+    let inpRepetisjoner = document.querySelector("#inpRepetisjoner");
+    let inpMotstand = document.querySelector("#inpMotstand");
+
+    // Variabler
+    let aktiviteter = {
+        Armer: ["Bicepscurl med stang", "Fransk press"],
+        Skuldre: ["Stående militærpress", "Sidehev"],
+        Ben: ["Knebøy", "Leg extension", "Leg curl"],
+        Rygg: ["Nedtrekk", "Roing"],
+        Bryst: ["Benkpress", "Flies", "Push up"]
+
+    };
+
+    // Legger til muskelgrupper i select-menyen
+    for (let grupp in aktiviteter){
+        selMuskelgruppe.innerHTML += `<option value="${grupp}">${grupp}</option>`;
+    }
+
+    // Lytterfunksjon for det å ha valgt en muskelgrupp
+    function velgMuskelgrupp(event){
+        
+        let valgtMuskelgruppe = event.target.value;
+        selAktivitet.innerHTML = "<option value=''>Velg aktivitet</option>";
+
+        let øvelser = aktiviteter[valgtMuskelgruppe];
+        for (let øvelse of øvelser){
+            selAktivitet.innerHTML += `<option value="${øvelse}">${øvelse}</option>`
+        }
+    }
+
+    // Lytterfunksjon for det å ha valgt en aktivitet
+    function velgAktivitet(event){
+
+    }
+
+    // Lytterfunksjon for å registrere et sett
+    function registrerSett(event){
+
+    }
+</script>
+</html>

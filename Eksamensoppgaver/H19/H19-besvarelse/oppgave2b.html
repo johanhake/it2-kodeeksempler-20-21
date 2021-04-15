@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppgave 2</title>
+    <link rel="stylesheet" href="brukerinput.css">
+    <style>
+        *{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #txtResultat{
+            margin-top: 2em;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <h3>Kaloriforbruk</h3>
+    <form onsubmit="beregnKaloriforbruk(event)">
+        <select required>
+            <option value="">Velg aktivitet</option>
+            <option value="814">Aerobics</option>
+            <option value="236">Bordtennis</option>
+            <option value="510">Fotball</option>
+            <option value="244">Golf</option>
+            <option value="666">Jogging</option>
+        </select>
+        <div class="checkboxes">
+            <input type="radio" name="intensitet" id="lavt" value="0.8" checked>
+            <label for="lavt">Lavt</label>
+            <input type="radio" name="intensitet" id="middels" value="1.0">
+            <label for="middels">Middels</label>
+            <input type="radio" name="intensitet" id="høyt" value="1.2">
+            <label for="høyt">Høyt</label>
+        </div>
+        <Label>Oppgi varighet på treningen i minutter:</Label>
+        <input type="number" id="varighet" min="0" required>
+        <button>Beregn kaloriforbruk</button>
+    </form>
+    <div id="txtResultat"></div>
+    <script>
+
+        // Lytterfunksjon for 
+        function beregnKaloriforbruk(event){
+            event.preventDefault();
+
+            // Henter verdier fra element
+            const aktivitet = Number(document.querySelector("select").value);
+            const intensitet = Number(document.querySelector("input[name=intensitet]:checked").value);
+            const varighet = Number(document.querySelector("#varighet").value)/60;
+
+            document.querySelector("#txtResultat").innerHTML = `
+               Ditt kaloriforbruk er: ${aktivitet*intensitet*varighet} kcal`;
+        }
+    </script>
+</body>
+</html>
