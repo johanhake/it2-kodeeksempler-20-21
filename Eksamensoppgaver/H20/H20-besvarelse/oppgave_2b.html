@@ -170,8 +170,10 @@
 
 			for (let i in firkantListe) {
 				let firkant = firkantListe[i];
+				// Bruker this for å få tak på raden som er valgt
+				// event.target velger td elementet man klikker på istedenfor...
 				tbody.innerHTML += `
-					<tr onclick="endreFirkant(event)"" data-rad-id="${i}">
+					<tr onclick="velgFirkant(this)" data-rad-id="${i}">
 						<td class="firkant-type">${firkant.navn}</td>
 						<td>${firkant.bunnlinje}</td>
 						<td>${firkant.topplinje}</td>
@@ -191,14 +193,14 @@
 
 		}
 
-		// Endrer en valgte firkant
-		function endreFirkant(event) {
+		// Velger en firkant fra tabellen
+		function velgFirkant(valgtRad) {
 			if (firkantErValgt()) {
 				aktivRad.classList.toggle("aktivRad");
 			}
 
 			// Oppdaterer den aktive raden
-			aktivRad = event.target.parentNode;
+			aktivRad = valgtRad;
 			aktivRad.classList.toggle("aktivRad")
 			let radId = Number(aktivRad.dataset.radId);
 
@@ -218,6 +220,7 @@
 		function registrerFirkant(event) {
 			event.preventDefault();
 
+			// Lager et tomt firkant objekt
 			let firkant = {};
 
 			// Har vi valgte en firkant of vi skal IKKE legge til ny?
@@ -233,6 +236,8 @@
 			firkant.topplinje = Number(skjema.inpTopplinje.value);
 			firkant.høyde = Number(skjema.inpHøyde.value);
 			firkant.forkyvning = Number(skjema.inpForskyvning.value);
+
+			// Beregner areal og hva slags firkant det er
 			firkant.areal = (firkant.bunnlinje+firkant.topplinje)/2*firkant.høyde;
 			firkant.navn = typeFirkant(firkant);
 
@@ -255,9 +260,13 @@
 		// Tegner en firkant på canvas
 		function tegnFirkant(firkant) {
 
-			// Sletter canvas
+			// Skjuler lerretet med en animasjon
 			let skjul = lerret.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 500, fill: "forwards" });
+
+			// Etter animasjonen er over tegner vi firkanten
 			skjul.onfinish = function () {
+
+				// Sletter canvas
 				ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 				let pikselPerCm = 30;
