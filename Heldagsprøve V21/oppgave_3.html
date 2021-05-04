@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="brukerinput.css">
+	<title>Oppgave 3</title>
+	<style>
+		*{
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		}
+
+		#container{
+			display: flex;
+		}
+
+		#kart {
+			position: relative;
+			width: 1050px;
+			height: 771px;
+		}
+
+		#kart * {
+			position: absolute;
+		}
+
+		#kart div {
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			background-color: white;
+			opacity: 0.2;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Reiseplanleggeren</h1>
+	<h2>Lag en reiserute og finn ut mer om fire ulike byer i vestre USA</h2>
+	<div id="container">
+		<div id="kart">
+			<img src="bilder/vestkysten-USA.PNG" alt="">
+		</div>
+		<div id="infoDiv">
+		</div>
+	</div>
+	<h3>Reiseruten</h3>
+	<button id="startStoppReiserute" onclick="startStoppReiserute(event)">
+		Start reiserute
+	</button>
+	<ol id="reiserutenOl"></ol>
+	<div id="reiserutenInfo"></div>
+	<script>
+
+		// DOM
+		let kart = document.querySelector("#kart");
+		let infoDiv = document.querySelector("#infoDiv");
+		let reiserutenDiv = document.querySelector("#reiserutenInfo");
+		let reiserutenOl = document.querySelector("#reiserutenOl");
+		let startStoppReiseruteBtn = document.querySelector("#startStoppReiserute");
+
+		// Objekt med informasjon
+		let info = {
+			LA: {
+				navn: "Los Angeles",
+				stat: "California",
+				kjent: "Hollywood",
+				innbyggere: 4000000,
+				pos: [417, 581]
+			},
+			SF: {
+				navn: "San Fransisco",
+				stat: "California",
+				kjent: "Golden Gate",
+				innbyggere: 900000,
+				pos: [156, 320]
+			},
+			LV: {
+				navn: "Las Vegas",
+				stat: "Nevaada",
+				kjent: "The Strip",
+				innbyggere: 640000,
+				pos: [609, 434]
+			},
+			PH: {
+				navn: "Phoenix",
+				stat: "Arizona",
+				kjent: "Ørken",
+				innbyggere: 1700000,
+				pos: [800, 622]
+			}
+		};
+
+		// Objekt med avstand mellom byer
+		let avstand = {
+			LA: {
+				LA: 0,
+				SF: 614,
+				LV: 433,
+				PH: 600
+			},
+			SF: {
+				LA: 614,
+				SF: 0,
+				LV: 915,
+				PH: 1213
+			},
+			LV: {
+				LA: 433,
+				SF: 915,
+				LV: 0,
+				PH: 486
+			},
+			PH: {
+				LA: 600,
+				SF: 1213,
+				LV: 486,
+				PH: 0
+			},
+		};
+
+		// Array som holder valgt reiserute
+		let reiserute;
+
+		// Variabel som er true hvis man lager en reiserute
+		let lagerReiserute = false;
+
+		// Legger inn hooverbare diver i kartet for hver by
+		for (let by in info) {
+			let byinfo = info[by];
+			let div = document.createElement("div");
+			div.style.left = (byinfo.pos[0] - 25) + "px";
+			div.style.top = (byinfo.pos[1] - 25) + "px";
+			div.dataset.by = by;
+			div.addEventListener("mouseover", visInfo);
+			div.addEventListener("mouseout", skjulInfo);
+			div.addEventListener("click", registrerByReiserute);
+			kart.appendChild(div);
+		}
+
+		// Viser informasjonen om en viss by
+		function visInfo(event) {
+			console.log("Inn:", event.target.dataset.by)
+			let by = event.target.dataset.by;
+			let byinfo = info[by]
+			console.log(info[by])
+
+			infoDiv.innerHTML = `<h3>${byinfo.navn}</h3>
+			<p><b>Stat:</b> ${byinfo.stat}</p>
+			<p><b>Kjent for:</b> ${byinfo.kjent}</p>
+			<p><b>Antall inbyggere:</b> ${byinfo.innbyggere}</p>
+									`;
+		}
+
+		// Skjuler info om hver by
+		function skjulInfo(event) {
+			console.log("Ut:", event.target.dataset.by)
+			infoDiv.innerHTML = "";
+		}
+
+		// Registrer by
+		function registrerByReiserute(event){
+
+			// Ikke gjør noe hvis vi ikke lager reiserute
+			if (!lagerReiserute){
+				return;
+			}
+
+			// Henter ut byen som ble valgt
+			let by = event.target.dataset.by;
+			console.log("Registrerer by:", by)
+
+			// Hvis første by som blir registrert
+			if (reiserute.length ===0){
+				reiserute.push(by)
+				reiserutenOl.innerHTML += `<li>${by}</li>`
+
+			// Hvis by er samme som første
+			}else if (reiserute[0] == by){
+				if (reiserute.length === 1){
+					reiserutenDiv.innerHTML = "<h4>Velg minst en by i tillegg til den første.</h4>"
+					return;
+				}
+
+				reiserute.push(by);
+				reiserutenOl.innerHTML += `<li>${by}</li>`
+				startStoppReiserute();
+			}else if(reiserute.includes(by)){
+				reiserutenDiv.innerHTML = "<h4>Ikke velg en by du allerede har vært i.</h4>"
+			}else{
+				reiserute.push(by);
+				reiserutenOl.innerHTML += `<li>${by}</li>`
+			}
+		}
+
+		// Funksjon som starter laging av reiserute
+		function startStoppReiserute(){
+
+			// Hvis vi lager reiserute så avslutter vi den når
+			if (lagerReiserute){
+				if (reiserute.length < 2){
+					reiserutenDiv.innerHTML = "<h4>Velg minst to byer</h4>"
+					return;
+
+				// Hvis siste stopp ikke er det samme som første stopp legg til det.
+				}else if (reiserute[0] !== reiserute[reiserute.length-1]){
+					reiserute.push(reiserute[0]);
+					reiserutenOl.innerHTML += `<li>${reiserute[0]}</li>`
+				}
+
+				// Beregner lengden på reiseruten
+				startStoppReiseruteBtn.innerHTML = "Start reiserute"
+				let lengde = 0;
+				for (let i = 0; i< reiserute.length-1; i++){
+					lengde += avstand[reiserute[i]][reiserute[i+1]];
+				}
+				reiserutenDiv.innerHTML = `<h4>Lengde på reiseruten er: ${lengde} km</h4>`
+
+			// Starter laging av reiserute
+			}else{
+				reiserute = [];
+				startStoppReiseruteBtn.innerHTML = "Avslutt reiserute"
+				reiserutenDiv.innerHTML = "";
+				reiserutenOl.innerHTML = "";
+			}
+
+			// Bytter info om laging av reiserute
+			lagerReiserute = !lagerReiserute;
+
+		}
+
+	</script>
+</body>
+
+</html>

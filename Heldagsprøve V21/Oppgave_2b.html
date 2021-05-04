@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="brukerinput.css">
+	<title>Oppgave 2</title>
+	<style>
+		*{
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		}
+
+		form{
+			width: 500px;
+			margin: 0 auto;
+		}
+	</style>
+</head>
+<body>
+<form onsubmit="registrerLån(event)">
+	<h1>Lånekalkulator</h1>
+	<h3>Skriv inn boligverdi og lånesum</h3>
+	<label for="boligverdi">Boligverdi</label><input id="boligverdi" type="number" min="1" max="1000000" placeholder="Boligverdi">
+	<label for="lånesum">Lånesum</label><input id="lånesum" type="number" min="0" placeholder="Lånesum">
+	<button>Registrer lån</button>
+	<div id="info"></div>
+</form>
+<script>
+
+	// DOM
+	let infoDiv = document.querySelector("#info");
+
+	// Registerer lånet
+	function registrerLån(event){
+		event.preventDefault();
+
+		// Henter ut verdiene og beregner adnel
+		let boligverdi = Number(event.target.boligverdi.value);
+		let lånesum = Number(event.target.lånesum.value);
+		let andel = lånesum/boligverdi;
+
+		// Sjekker at lånesum er mindre enn boligverdi
+		if (lånesum > boligverdi){
+			infoDiv.innerHTML = `Lånesum kan IKKE være større enn boligverdi`;
+			return;
+		}
+
+		if (andel<0.6){
+			infoDiv.innerHTML = `Renten blir 1,79%`;
+		}else if(andel < 0.85){
+			infoDiv.innerHTML = `Renten blir 1,99%`;
+		}else{
+			infoDiv.innerHTML = `Renten blir 2,19% og du må ha kausjonist på ${lånesum-boligverdi*0.85} kr`;
+		}
+
+	}
+</script>
+</body>
+</html>

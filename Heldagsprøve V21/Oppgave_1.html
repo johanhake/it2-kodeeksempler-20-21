@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Oppgave 1</title>
+	<style>
+		* {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Bildegenerator</h1>
+	<h3 id="dyrTxt">Møt stallens kjøttstykke: Kuen!</h3>
+	<p>Klikk på bildet for å få opp nytt dyr.</p>
+	<img src="bilder/ku.png" alt="" onclick="nesteBilde()">
+	<p id="lydBeskjed"></p>
+	<audio src="lyd/ku.mp3"></audio>
+	<script>
+		// DOM
+		let dyrTxt = document.querySelector("#dyrTxt");
+		let lydBeskjed = document.querySelector("#lydBeskjed");
+		let img = document.querySelector("img");
+		let audio = document.querySelector("audio");
+		let forrigeValg = 3;
+
+		// Funksjon som kjøres når man har klikket på bildet
+		function nesteBilde() {
+
+			// Lager tilfeldig tall mellom 0 og antall mulige dyr
+			let dyreIndeks = Math.floor(Math.random() * 4);
+
+			// Trekker et nytt tilfeldig tall
+			if (dyreIndeks === forrigeValg) {
+				nesteBilde();
+				return;
+			}
+
+			// Oppdaterer forrige valg
+			forrigeValg = dyreIndeks;
+
+			let animasjon = img.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500 })
+			animasjon.onfinish = function () {
+				// Viser bildet avhengig av verdien til det tilfeldige tallet
+				if (dyreIndeks === 0) {
+					img.src = "bilder/loeve.png";
+					audio.src = "lyd/loeve.mp3"
+					dyrTxt.innerHTML = "Møt savannens konge: Løven!";
+					lydBeskjed.innerHTML = "";
+					audio.play();
+				} else if (dyreIndeks === 1) {
+					img.src = "bilder/hest.png";
+					audio.src = "lyd/hest.mp3"
+					dyrTxt.innerHTML = "Møt stallens springere: Hesten!";
+					lydBeskjed.innerHTML = "";
+					audio.play();
+				} else if (dyreIndeks === 2) {
+					img.src = "bilder/sjiraff.png";
+					audio.src = ""
+					dyrTxt.innerHTML = "Møt savannens stige: Sjiraffen!";
+					lydBeskjed.innerHTML = "Sjiraffen har ikke noen lyd!";
+				} else {
+					img.src = "bilder/ku.png";
+					audio.src = "lyd/ku.mp3"
+					dyrTxt.innerHTML = "Møt stallens kjøttstykke: Kuen!";
+					lydBeskjed.innerHTML = "";
+					audio.play();
+				}
+
+				img.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 500 })
+			};
+
+		}
+
+	</script>
+</body>
+
+</html>
