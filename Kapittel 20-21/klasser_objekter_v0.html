@@ -41,10 +41,14 @@
 
 		console.log("Areal og omkrets av kvadrat:", kvadrat.areal, kvadrat.omkrets)
 		console.log("Areal og omkrets av rektangel:", rektangel.areal, rektangel.omkrets)
+		console.log("Areal og omkrets av sirkel:", sirkel.areal, sirkel.omkrets)
 		console.log("Areal og omkrets av sirkel:", sirkel.formatAreal(), sirkel.formatOmkrets())
 
 		kvadrat.areal = -34;
 		console.log("Areal og omkrets etter endring av kvadrat:", kvadrat.areal, kvadrat.omkrets)
+
+		let rektangel1 = new Figur2D_v0(3 * 4, 2*(3+4));
+		let rektangel2 = new Figur2D_v0(2 * 6, 2*(2+6));
 
 	</script>
 </body>
