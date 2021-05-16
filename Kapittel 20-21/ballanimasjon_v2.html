@@ -50,8 +50,9 @@
 		let baller = [];
 
 		// Parametrer
-		let antallHinder = 5;
+		let antallHinder = 3;
 
+		// Baseklasse for alle ulike ball objekter
 		class Ball{
 			constructor(x, y, radius, fillFarge, linjeFarge){
 				this._x = x;
@@ -61,13 +62,36 @@
 				this._linjeFarge = linjeFarge
 			}
 
-			tegn(){}
+			// Metode som tegner ballen
+			tegn(){
+				// Husk å IKKE kall clearRect her!
+			}
 
 		}
 
-		class Hinder extends Ball{}
+		// Klasse som implementerer ett hinder en spiller må unngå å treffe
+		class Hinder extends Ball{
+			constructor(/* Fyll inn argumenter her! */){
+				// Fyll inn kode her!
+			}
 
-		class Spiller extends Ball{}
+			// Metode som flytter ballen for hver vindu
+			flytt(){
+				// Fyll inn kode her!
+			}
+		}
+
+		// Klasse som implementerer en ball en spiller kan styre
+		class Spiller extends Ball{
+			constructor(/* Fyll inn argumenter her! */){
+				// Fyll inn kode her!
+			}
+
+			// Metode som flytter ballen for hver vindu
+			flytt(){
+				// Fyll inn kode her!
+			}
+		}
 
 		// Lager Spiller og Hinder ballene
 		//baller.push(new Spiller(/* Argumenter */));
@@ -97,20 +121,19 @@
 				ball.tegn();
 			}
 
+			// Tegn neste vindu
 			requestAnimationFrame(animer);
 		}
 
 		// Lytterfunksjon for å trykke ned en tast
 		function tastNed(event) {
-			// event.key innholder en streng representasjon av tasten som
-			// ble trykket ned.
+			// event.key innholder en streng representasjon av tasten som ble trykket ned.
 			taster[event.key] = true;
 		}
 
 		// Lytterfunksjon for det å løfte en tast
 		function tastOpp(event) {
-			// event.key innholder en streng representasjon av tasten som
-			// ble løftet.
+			// event.key innholder en streng representasjon av tasten som ble løftet.
 			taster[event.key] = false;
 		}
 

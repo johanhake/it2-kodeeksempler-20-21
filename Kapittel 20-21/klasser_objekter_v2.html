@@ -61,6 +61,26 @@
 			}
 		}
 
+		class Sirkel extends Figur2D{
+			constructor(radius){
+				super(radius*radius*Math.PI, 2*side*Math.PI);
+				this._radius = radius;
+			}
+
+			get radius(){
+				return this._radius;
+			}
+
+			set side(verdi){
+				if (verdi < 0){
+					return;
+				}
+				this._radius = verdi;
+				this._areal = this._radius*this._radius*Math.PI
+				this._omkrets = 2*this._radius*Math.PI;
+			}
+		}
+
 		class Rektangel extends Figur2D{
 			constructor(lengde, bredde){
 				super(lengde*bredde, 2*(lengde+bredde));
@@ -93,10 +113,6 @@
 				this._areal = this._lengde*this._bredde
 				this._omkrets = 2*(this._lengde+this._bredde);
 			}
-		}
-
-		class Sirkel{
-			// Fortsett her!
 		}
 
 		let kvadrat = new Kvadrat(2);
